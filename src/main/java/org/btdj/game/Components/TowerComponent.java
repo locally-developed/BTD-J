@@ -34,26 +34,17 @@ public class TowerComponent extends Component {
         List<Entity> bloonsInRange = world.getEntitiesInRange(rangeCollider)
                 .stream()
                 .filter(e -> e.getType() == MainApp.EntityType.BLOON)
-                .sorted(Comparator.comparingInt(e -> e.getInt("order")))
                 .toList();
+
         if (!bloonsInRange.isEmpty()) {
-            Entity target= switch(targetingPriority) {
-                case FIRST:
-                    yield bloonsInRange.get(0);
-                case LAST:
-                    yield bloonsInRange.get(bloonsInRange.size()-1);
-                case STRONGEST:
-                    yield bloonsInRange.get(1);
-                case WEAKEST:
-                    yield bloonsInRange.get(2);
-            };
+            Entity target = bloonsInRange.get(0);
 
             Point2D p1 = target.getPosition().subtract(entity.getPosition());
             Point2D lookVector = new Point2D(1, 0);
             double angle = lookVector.angle(p1);
 
             entity.setRotation(angle);
-
+            target.getComponent(BloonsComponent.class).pop(1);
         }
     }
 

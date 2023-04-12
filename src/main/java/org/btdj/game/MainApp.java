@@ -66,13 +66,19 @@ public class MainApp extends GameApplication {
                 new LineTo(800, 600)
         );
 
-        FXGL.animationBuilder()
-                .interpolator(Interpolators.LINEAR.EASE_IN_OUT())
-                .onFinished(() -> bloonList.get(0).getComponent(BloonsComponent.class).pop())
-                .duration(Duration.seconds(5))
-                .translate(bloonList.get(0))
-                .alongPath(track)
-                .buildAndPlay();
+        for (int j = 0; j < bloonList.size(); j++) {
+            Entity bloon = bloonList.get(j);
+
+            FXGL.getGameTimer().runOnceAfter(() -> {
+                FXGL.animationBuilder()
+                        .interpolator(Interpolators.LINEAR.EASE_IN_OUT())
+                        .onFinished(() -> bloon.getComponent(BloonsComponent.class).pop())
+                        .duration(Duration.seconds(5))
+                        .translate(bloon)
+                        .alongPath(track)
+                        .buildAndPlay();
+            }, Duration.seconds(j * 0.5));
+        }
     }
 
     public static void main(String[] args) {

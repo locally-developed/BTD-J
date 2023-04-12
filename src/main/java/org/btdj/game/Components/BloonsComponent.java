@@ -27,4 +27,7 @@ public class BloonsComponent extends Component {
         entity.getViewComponent().addChild(FXGL.getAssetLoader().loadTexture("bloons/red.png"));
         ObjectMapper mapper = new ObjectMapper();
     }
+    public void pop(int a) {
+        FXGL.getGameWorld().removeEntity(entity);
+    }
 }
