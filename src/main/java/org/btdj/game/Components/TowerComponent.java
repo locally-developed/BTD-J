@@ -1,5 +1,6 @@
 package org.btdj.game.Components;
 
+import com.almasb.fxgl.animation.Interpolators;
 import com.almasb.fxgl.dsl.FXGL;
 import com.almasb.fxgl.entity.Entity;
 import com.almasb.fxgl.entity.GameWorld;
@@ -9,6 +10,7 @@ import javafx.geometry.Rectangle2D;
 import org.btdj.game.MainApp;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Stream;
 
@@ -20,24 +22,11 @@ public class TowerComponent extends Component {
         WEAKEST
     }
 
-    private GameWorld world = FXGL.getGameWorld();
+    private final GameWorld world = FXGL.getGameWorld();
     private Rectangle2D rangeCollider;
-    private Entity target;
     private Priority targetingPriority = Priority.FIRST;
     public TowerComponent(ArrayList<Entity> bloonList) {
         this.rangeCollider = new Rectangle2D(400, 100, 200, 200);
-        this.target = bloonList.get(
-                switch(targetingPriority) {
-                    case FIRST:
-                        yield 0;
-                    case LAST:
-                        yield bloonList.size() - 1;
-                    case STRONGEST:
-                        yield 1;
-                    case WEAKEST:
-                        yield 2;
-                }
-        );
     }
 
     @Override
@@ -45,9 +34,19 @@ public class TowerComponent extends Component {
         List<Entity> bloonsInRange = world.getEntitiesInRange(rangeCollider)
                 .stream()
                 .filter(e -> e.getType() == MainApp.EntityType.BLOON)
+                .sorted(Comparator.comparingInt(e -> e.getInt("order")))
                 .toList();
-        if (bloonsInRange.size() > 0) {
-            target = bloonsInRange.get(0);
+        if (!bloonsInRange.isEmpty()) {
+            Entity target= switch(targetingPriority) {
+                case FIRST:
+                    yield bloonsInRange.get(0);
+                case LAST:
+                    yield bloonsInRange.get(bloonsInRange.size()-1);
+                case STRONGEST:
+                    yield bloonsInRange.get(1);
+                case WEAKEST:
+                    yield bloonsInRange.get(2);
+            };
 
             Point2D p1 = target.getPosition().subtract(entity.getPosition());
             Point2D lookVector = new Point2D(1, 0);

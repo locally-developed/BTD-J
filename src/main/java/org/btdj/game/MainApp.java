@@ -42,7 +42,7 @@ public class MainApp extends GameApplication {
                             .buildAndAttach()
             );
             bloonList.get(i).addComponent(new BloonsComponent());
-
+            bloonList.get(i).setProperty("order", i);
         }
 
         tower = FXGL.entityBuilder()

@@ -15,6 +15,7 @@ public class BloonsComponent extends Component {
         YELLOW,
         PINK
     };
+
     @Override
     public void onUpdate(double tpf) {
 
