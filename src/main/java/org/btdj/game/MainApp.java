@@ -15,6 +15,11 @@ import org.btdj.game.Components.TowerComponent;
 import java.util.ArrayList;
 
 public class MainApp extends GameApplication {
+    public enum EntityType {
+        TOWER,
+        BLOON,
+        PROJECTILE
+    }
     @Override
     protected void initSettings(GameSettings settings) {
         settings.setWidth(800);
@@ -33,6 +38,7 @@ public class MainApp extends GameApplication {
                     FXGL.entityBuilder()
                             .at(300 - i*50,300)
                             .view("bloons/blue.png")
+                            .type(EntityType.BLOON)
                             .buildAndAttach()
             );
             bloonList.get(i).addComponent(new BloonsComponent());
@@ -42,9 +48,13 @@ public class MainApp extends GameApplication {
         tower = FXGL.entityBuilder()
                 .at(500, 200)
                 .view(new Rectangle(25, 25, Color.BLUE))
+                .type(EntityType.TOWER)
                 .buildAndAttach();
 
         tower.setRotationOrigin(new Point2D(25.0/2,25.0/2));
+        Rectangle collider = new Rectangle(400+12.5, 100+12.5, 200, 200);
+        collider.setOpacity(0.2);
+        FXGL.getGameScene().addChild(collider);
         tower.addComponent(new TowerComponent(bloonList));
 
         FXGL.play("music.wav");
