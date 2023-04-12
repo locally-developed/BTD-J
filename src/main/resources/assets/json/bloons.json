@@ -1,0 +1,22 @@
+{
+  "red": {
+    "speed": 1.0,
+    "parent": "",
+    "child": "blue"
+  },
+  "blue": {
+    "speed": 1.4,
+    "parent": "red",
+    "child": "green"
+  },
+  "green": {
+    "speed": 1.8,
+    "parent": "blue",
+    "child": "yellow"
+  },
+  "yellow": {
+    "speed": 3.2,
+    "parent": "green",
+    "child": ""
+  }
+}
