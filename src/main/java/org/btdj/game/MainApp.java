@@ -33,10 +33,10 @@ public class MainApp extends GameApplication {
 
     @Override
     protected void initGame() {
-        for (int i = 0; i < 2; i++) {
+        for (int i = 0; i < 5; i++) {
             bloonList.add(
                     FXGL.entityBuilder()
-                            .at(300 - i*50,300)
+                            .at(300 - i*75,300)
                             .view("bloons/blue.png")
                             .type(EntityType.BLOON)
                             .buildAndAttach()
@@ -66,18 +66,8 @@ public class MainApp extends GameApplication {
                 new LineTo(800, 600)
         );
 
-        for (int j = 0; j < bloonList.size(); j++) {
-            Entity bloon = bloonList.get(j);
-
-            FXGL.getGameTimer().runOnceAfter(() -> {
-                FXGL.animationBuilder()
-                        .interpolator(Interpolators.LINEAR.EASE_IN_OUT())
-                        .onFinished(() -> bloon.getComponent(BloonsComponent.class).pop())
-                        .duration(Duration.seconds(5))
-                        .translate(bloon)
-                        .alongPath(track)
-                        .buildAndPlay();
-            }, Duration.seconds(j * 0.5));
+        for (Entity bloon: bloonList) {
+            bloon.getComponent(BloonsComponent.class).setVelocity(new Point2D(3,0));
         }
     }
 

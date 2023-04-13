@@ -1,6 +1,5 @@
 package org.btdj.game.Components;
 
-import com.almasb.fxgl.animation.Interpolators;
 import com.almasb.fxgl.dsl.FXGL;
 import com.almasb.fxgl.entity.Entity;
 import com.almasb.fxgl.entity.GameWorld;
@@ -10,9 +9,7 @@ import javafx.geometry.Rectangle2D;
 import org.btdj.game.MainApp;
 
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
-import java.util.stream.Stream;
 
 public class TowerComponent extends Component {
     public enum Priority {
@@ -23,7 +20,8 @@ public class TowerComponent extends Component {
     }
 
     private final GameWorld world = FXGL.getGameWorld();
-    private Rectangle2D rangeCollider;
+    private final Rectangle2D rangeCollider;
+    private float coolDown = 0;
     private Priority targetingPriority = Priority.FIRST;
     public TowerComponent(ArrayList<Entity> bloonList) {
         this.rangeCollider = new Rectangle2D(400, 100, 200, 200);
@@ -44,8 +42,13 @@ public class TowerComponent extends Component {
             double angle = lookVector.angle(p1);
 
             entity.setRotation(angle);
-            target.getComponent(BloonsComponent.class).pop(1);
+
+            if (coolDown >= 1) {
+                target.getComponent(BloonsComponent.class).pop(1);
+                coolDown = 0;
+            }
         }
+        coolDown += tpf;
     }
 
     public void setTargetingPriority(Priority priority) {
