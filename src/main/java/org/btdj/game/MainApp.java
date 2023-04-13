@@ -59,13 +59,6 @@ public class MainApp extends GameApplication {
 
         FXGL.play("music.wav");
 
-        Path track = new Path(
-                new MoveTo(300,300),
-                new LineTo(600, 300),
-                new LineTo(600, 600),
-                new LineTo(800, 600)
-        );
-
         for (Entity bloon: bloonList) {
             bloon.getComponent(BloonsComponent.class).setVelocity(new Point2D(3,0));
         }
