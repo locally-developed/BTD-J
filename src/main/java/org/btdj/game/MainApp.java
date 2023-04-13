@@ -8,7 +8,6 @@ import com.almasb.fxgl.entity.Entity;
 import javafx.geometry.Point2D;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.*;
-import javafx.util.Duration;
 import org.btdj.game.Components.BloonsComponent;
 import org.btdj.game.Components.TowerComponent;
 
