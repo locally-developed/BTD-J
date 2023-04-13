@@ -12,6 +12,7 @@ public class BloonFactory implements EntityFactory {
     @Spawns("bloon")
     public Entity newBloon(SpawnData data) {
         Entity bloon = FXGL.entityBuilder(data)
+                .at(-50,300)
                 .view("bloons/blue.png")
                 .type(MainApp.EntityType.BLOON)
                 .build();

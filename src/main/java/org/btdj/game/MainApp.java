@@ -8,8 +8,10 @@ import com.almasb.fxgl.entity.Entity;
 import javafx.geometry.Point2D;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.*;
+import javafx.util.Duration;
 import org.btdj.game.Components.BloonsComponent;
 import org.btdj.game.Components.TowerComponent;
+import org.btdj.game.Factories.BloonFactory;
 
 import java.util.ArrayList;
 
@@ -30,19 +32,16 @@ public class MainApp extends GameApplication {
     private final ArrayList<Entity> bloonList = new ArrayList<>();
     private Entity tower;
 
+
     @Override
     protected void initGame() {
-        for (int i = 0; i < 5; i++) {
-            bloonList.add(
-                    FXGL.entityBuilder()
-                            .at(300 - i*75,300)
-                            .view("bloons/blue.png")
-                            .type(EntityType.BLOON)
-                            .buildAndAttach()
-            );
-            bloonList.get(i).addComponent(new BloonsComponent());
-            bloonList.get(i).setProperty("order", i);
-        }
+        FXGL.getGameWorld().addEntityFactory(new BloonFactory());
+
+        FXGL.getGameTimer().runAtInterval(() -> {
+            Entity bloon = FXGL.getGameWorld().spawn("bloon");
+            bloonList.add(bloon);
+            bloon.getComponent(BloonsComponent.class).setVelocity(new Point2D(3,0));
+        }, Duration.seconds(1));
 
         tower = FXGL.entityBuilder()
                 .at(500, 200)
@@ -57,10 +56,6 @@ public class MainApp extends GameApplication {
         tower.addComponent(new TowerComponent(bloonList));
 
         FXGL.play("music.wav");
-
-        for (Entity bloon: bloonList) {
-            bloon.getComponent(BloonsComponent.class).setVelocity(new Point2D(3,0));
-        }
     }
 
     public static void main(String[] args) {
