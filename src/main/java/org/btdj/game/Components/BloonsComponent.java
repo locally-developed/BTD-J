@@ -7,7 +7,6 @@ import javafx.geometry.Point2D;
 
 
 public class BloonsComponent extends Component {
-    public static final
 
     public enum Type {
         RED,
