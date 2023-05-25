@@ -2,7 +2,7 @@ package org.btdj.game.Data.Bloons;
 
 import org.btdj.game.Components.BloonsComponent;
 
-class Bloon {
+public class Bloon {
     public final BloonsComponent.Type TYPE;
     public final double SPEED;
     public final String PARENT;

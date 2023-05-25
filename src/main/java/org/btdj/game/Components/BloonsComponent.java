@@ -4,10 +4,11 @@ import com.almasb.fxgl.dsl.FXGL;
 import com.almasb.fxgl.entity.component.Component;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import javafx.geometry.Point2D;
+import org.btdj.game.Data.Bloons.Bloon;
+import org.btdj.game.Util.JsonParser;
 
 
 public class BloonsComponent extends Component {
-
     public enum Type {
         RED,
         BLUE,
@@ -17,6 +18,11 @@ public class BloonsComponent extends Component {
     };
 
     private Point2D velocity = new Point2D(0,0);
+    private Bloon properties;
+
+    public BloonsComponent(Type type) {
+        properties = JsonParser.getBloonFromJson(type.name());
+    }
 
     @Override
     public void onUpdate(double tpf) {
@@ -30,7 +36,7 @@ public class BloonsComponent extends Component {
         entity.getViewComponent().addChild(FXGL.getAssetLoader().loadTexture("bloons/red.png"));
         ObjectMapper mapper = new ObjectMapper();
     }
-    public void remove(int a) {
+    public void remove() {
         FXGL.getGameWorld().removeEntity(entity);
     }
     public void setVelocity() {
