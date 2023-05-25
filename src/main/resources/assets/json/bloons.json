@@ -2,21 +2,25 @@
   "red": {
     "speed": 1.0,
     "parent": "",
-    "child": "blue"
+    "child": "blue",
+    "RBE": 1
   },
   "blue": {
     "speed": 1.4,
     "parent": "red",
-    "child": "green"
+    "child": "green",
+    "RBE": 2
   },
   "green": {
     "speed": 1.8,
     "parent": "blue",
-    "child": "yellow"
+    "child": "yellow",
+    "RBE": 3
   },
   "yellow": {
     "speed": 3.2,
     "parent": "green",
-    "child": ""
+    "child": "",
+    "RBE": 4
   }
 }
