@@ -1,26 +1,26 @@
 {
   "red": {
     "speed": 1.0,
-    "parent": "",
-    "child": "blue",
+    "parent": "blue",
+    "child": "",
     "RBE": 1
   },
   "blue": {
     "speed": 1.4,
-    "parent": "red",
-    "child": "green",
+    "parent": "green",
+    "child": "red",
     "RBE": 2
   },
   "green": {
     "speed": 1.8,
-    "parent": "blue",
-    "child": "yellow",
+    "parent": "yellow",
+    "child": "blue",
     "RBE": 3
   },
   "yellow": {
     "speed": 3.2,
-    "parent": "green",
-    "child": "",
+    "parent": "",
+    "child": "green",
     "RBE": 4
   }
 }

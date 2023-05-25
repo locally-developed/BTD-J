@@ -16,6 +16,7 @@ import org.btdj.game.Factories.BloonFactory;
 import java.util.ArrayList;
 
 public class MainApp extends GameApplication {
+    public static final Point2D BLOON_SPAWN = new Point2D(-50,300);
     public enum EntityType {
         TOWER,
         BLOON,
@@ -38,7 +39,7 @@ public class MainApp extends GameApplication {
         FXGL.getGameWorld().addEntityFactory(new BloonFactory());
 
         FXGL.getGameTimer().runAtInterval(() -> {
-            Entity bloon = FXGL.getGameWorld().spawn("bloon");
+            Entity bloon = FXGL.getGameWorld().spawn("bloon-blue");
             bloonList.add(bloon);
             bloon.getComponent(BloonsComponent.class).setVelocity(new Point2D(3,0));
         }, Duration.seconds(1));
