@@ -41,7 +41,7 @@ public class MainApp extends GameApplication {
         FXGL.getGameTimer().runAtInterval(() -> {
             Entity bloon = FXGL.getGameWorld().spawn("bloon-blue");
             bloonList.add(bloon);
-            bloon.getComponent(BloonsComponent.class).setVelocity(new Point2D(3,0));
+            //bloon.getComponent(BloonsComponent.class).setVelocity(new Point2D(3,0));
         }, Duration.seconds(1));
 
         tower = FXGL.entityBuilder()

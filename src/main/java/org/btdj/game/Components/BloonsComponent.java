@@ -3,27 +3,20 @@ package org.btdj.game.Components;
 import com.almasb.fxgl.dsl.FXGL;
 import com.almasb.fxgl.entity.component.Component;
 import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import javafx.geometry.Point2D;
-import org.btdj.game.Data.Bloons.Bloon;
+import kotlin.coroutines.jvm.internal.SuspendFunction;
 import org.btdj.game.Util.JsonParser;
+
+import java.io.IOException;
 
 
 public class BloonsComponent extends Component {
-    public enum Type {
-        RED,
-        BLUE,
-        GREEN,
-        YELLOW,
-        PINK
-    };
-
     private Point2D velocity = new Point2D(0,0);
     private JsonNode properties;
+    private String bloonType;
 
-    public BloonsComponent(Type type) {
-        properties = JsonParser.getBloonFromJson(type.name());
-        System.out.println(properties);
+    public BloonsComponent(String type) {
+        updateProperties(type);
     }
 
     @Override
@@ -31,18 +24,31 @@ public class BloonsComponent extends Component {
         entity.translate(velocity);
     }
 
+    public void updateProperties(String type) {
+        try {
+            properties = JsonParser.getBloonFromJson(type);
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+        this.bloonType = type;
+        setVelocity(new Point2D(1.5 * properties.get("speed").asDouble(), 0));
+    }
 
     public void pop() {
-        System.out.println(Type.RED.ordinal());
+        if (properties.get("child").textValue().isEmpty()) {
+            System.out.println("pop red!");
+            remove();
+            return;
+        }
+        updateProperties(properties.get("child").textValue());
+
         entity.getViewComponent().clearChildren();
-        entity.getViewComponent().addChild(FXGL.getAssetLoader().loadTexture("bloons/red.png"));
-        ObjectMapper mapper = new ObjectMapper();
+        entity.getViewComponent().addChild(FXGL.getAssetLoader().loadTexture(String.format("bloons/%S.png", bloonType)));
     }
     public void remove() {
         FXGL.getGameWorld().removeEntity(entity);
     }
     public void setVelocity() {
-
         this.velocity = new Point2D(1,2);
     }
 

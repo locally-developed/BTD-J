@@ -16,7 +16,7 @@ public class BloonFactory implements EntityFactory {
                 .view("bloons/red.png")
                 .type(MainApp.EntityType.BLOON)
                 .build();
-        bloon.addComponent(new BloonsComponent(BloonsComponent.Type.RED));
+        bloon.addComponent(new BloonsComponent("red"));
 
         return bloon;
     }
@@ -28,7 +28,7 @@ public class BloonFactory implements EntityFactory {
                 .view("bloons/blue.png")
                 .type(MainApp.EntityType.BLOON)
                 .build();
-        bloon.addComponent(new BloonsComponent(BloonsComponent.Type.BLUE));
+        bloon.addComponent(new BloonsComponent("blue"));
 
         return bloon;
     }
