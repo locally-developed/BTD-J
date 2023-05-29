@@ -2,6 +2,7 @@ package org.btdj.game.Components;
 
 import com.almasb.fxgl.dsl.FXGL;
 import com.almasb.fxgl.entity.component.Component;
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import javafx.geometry.Point2D;
 import org.btdj.game.Data.Bloons.Bloon;
@@ -18,10 +19,11 @@ public class BloonsComponent extends Component {
     };
 
     private Point2D velocity = new Point2D(0,0);
-    private Bloon properties;
+    private JsonNode properties;
 
     public BloonsComponent(Type type) {
         properties = JsonParser.getBloonFromJson(type.name());
+        System.out.println(properties);
     }
 
     @Override
