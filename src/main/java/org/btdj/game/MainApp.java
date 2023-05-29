@@ -27,7 +27,7 @@ public class MainApp extends GameApplication {
         settings.setWidth(800);
         settings.setHeight(800);
         settings.setTitle("BTD-J");
-        settings.setVersion("PRE ALPHA 0.1");
+        settings.setVersion("PRE ALPHA 0.2");
     }
 
     private final ArrayList<Entity> bloonList = new ArrayList<>();
