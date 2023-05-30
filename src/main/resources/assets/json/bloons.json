@@ -1,26 +1,90 @@
 {
   "red": {
     "speed": 1.0,
+    "health": 1,
     "parent": "blue",
-    "child": "",
-    "RBE": 1
+    "child": [],
+    "RBE": 1,
+    "tags": []
   },
   "blue": {
     "speed": 1.4,
+    "health": 1,
     "parent": "green",
-    "child": "red",
-    "RBE": 2
+    "child": ["red"],
+    "RBE": 2,
+    "tags": []
   },
   "green": {
     "speed": 1.8,
+    "health": 1,
     "parent": "yellow",
-    "child": "blue",
-    "RBE": 3
+    "child": ["blue"],
+    "RBE": 3,
+    "tags": []
   },
   "yellow": {
     "speed": 3.2,
+    "health": 1,
+    "parent": "pink",
+    "child": ["green"],
+    "RBE": 4,
+    "tags": []
+  },
+  "pink": {
+    "speed": 3.5,
+    "health": 1,
     "parent": "",
-    "child": "green",
-    "RBE": 4
+    "child": ["yellow"],
+    "RBE": 5,
+    "tags": []
+  },
+  "black": {
+    "speed": 1.8,
+    "health": 1,
+    "parent": "zebra",
+    "child": ["pink", "pink"],
+    "RBE": 11,
+    "tags": ["explosion_immune"]
+  },
+  "white": {
+    "speed": 2.0,
+    "health": 1,
+    "parent": "zebra",
+    "child": ["pink", "pink"],
+    "RBE": 11,
+    "tags": ["freezing_immune"]
+  },
+  "lead": {
+    "speed": 1.0,
+    "health": 1,
+    "parent": "",
+    "child": ["black", "black"],
+    "RBE": 23,
+    "tags": ["projectile_immune"]
+  },
+  "zebra": {
+    "speed": 1.8,
+    "health": 1,
+    "parent": "rainbow",
+    "child": ["black", "white"],
+    "RBE": 11,
+    "tags": ["explosion_immune", "freezing_immune"]
+  },
+  "rainbow": {
+    "speed": 3.3,
+    "health": 1,
+    "parent": "ceramic",
+    "child": ["zebra", "zebra"],
+    "RBE": 47,
+    "tags": []
+  },
+  "ceramic": {
+    "speed": 2.5,
+    "health": 10,
+    "parent": "",
+    "child": ["rainbow", "rainbow"],
+    "RBE": 104,
+    "tags": ["glue_immune"]
   }
 }

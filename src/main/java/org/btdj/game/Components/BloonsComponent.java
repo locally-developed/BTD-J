@@ -1,10 +1,11 @@
 package org.btdj.game.Components;
 
 import com.almasb.fxgl.dsl.FXGL;
+import com.almasb.fxgl.entity.Entity;
 import com.almasb.fxgl.entity.component.Component;
 import com.fasterxml.jackson.databind.JsonNode;
 import javafx.geometry.Point2D;
-import kotlin.coroutines.jvm.internal.SuspendFunction;
+import org.btdj.game.MainApp;
 import org.btdj.game.Util.JsonParser;
 
 import java.io.IOException;
@@ -14,10 +15,6 @@ public class BloonsComponent extends Component {
     private Point2D velocity = new Point2D(0,0);
     private JsonNode properties;
     private String bloonType;
-
-    public BloonsComponent(String type) {
-        updateProperties(type);
-    }
 
     @Override
     public void onUpdate(double tpf) {
@@ -32,18 +29,26 @@ public class BloonsComponent extends Component {
         }
         this.bloonType = type;
         setVelocity(new Point2D(1.5 * properties.get("speed").asDouble(), 0));
-    }
-
-    public void pop() {
-        if (properties.get("child").textValue().isEmpty()) {
-            System.out.println("pop red!");
-            remove();
-            return;
-        }
-        updateProperties(properties.get("child").textValue());
 
         entity.getViewComponent().clearChildren();
         entity.getViewComponent().addChild(FXGL.getAssetLoader().loadTexture(String.format("bloons/%S.png", bloonType)));
+    }
+
+    public void pop() {
+        if (properties.get("child").size() == 0) {
+            remove();
+            return;
+        }
+        if (properties.get("child").size() > 1) {
+            for (int i = 1; i < properties.get("child").size(); i++) {
+                Entity bloon = FXGL.getGameWorld().spawn("bloon");
+                bloon.setPosition(entity.getPosition().add(new Point2D(-10 * i, 0)));
+                bloon.getComponent(BloonsComponent.class).updateProperties(properties.get("child").get(i).textValue());
+                MainApp.bloonList.add(bloon);
+            }
+        }
+
+        updateProperties(properties.get("child").get(0).textValue());
     }
     public void remove() {
         FXGL.getGameWorld().removeEntity(entity);

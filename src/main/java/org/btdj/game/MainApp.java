@@ -30,19 +30,23 @@ public class MainApp extends GameApplication {
         settings.setVersion("PRE ALPHA 0.2");
     }
 
-    private final ArrayList<Entity> bloonList = new ArrayList<>();
+    public static final ArrayList<Entity> bloonList = new ArrayList<>();
     private Entity tower;
-
 
     @Override
     protected void initGame() {
         FXGL.getGameWorld().addEntityFactory(new BloonFactory());
 
-        FXGL.getGameTimer().runAtInterval(() -> {
-            Entity bloon = FXGL.getGameWorld().spawn("bloon-blue");
-            bloonList.add(bloon);
-            //bloon.getComponent(BloonsComponent.class).setVelocity(new Point2D(3,0));
-        }, Duration.seconds(1));
+        Entity bloon = FXGL.getGameWorld().spawn("bloon");
+        bloon.getComponent(BloonsComponent.class).updateProperties("black");
+        bloonList.add(bloon);
+
+//        FXGL.getGameTimer().runAtInterval(() -> {
+//            Entity bloon = FXGL.getGameWorld().spawn("bloon");
+//            bloon.getComponent(BloonsComponent.class).updateProperties("pink");
+//            bloonList.add(bloon);
+//            //bloon.getComponent(BloonsComponent.class).setVelocity(new Point2D(3,0));
+//        }, Duration.seconds(0.5));
 
         tower = FXGL.entityBuilder()
                 .at(500, 200)

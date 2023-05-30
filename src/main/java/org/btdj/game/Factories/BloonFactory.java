@@ -9,26 +9,14 @@ import org.btdj.game.Components.BloonsComponent;
 import org.btdj.game.MainApp;
 
 public class BloonFactory implements EntityFactory {
-    @Spawns("bloon-red")
+    @Spawns("bloon")
     public Entity newBloonRed(SpawnData data) {
         Entity bloon = FXGL.entityBuilder(data)
                 .at(MainApp.BLOON_SPAWN)
                 .view("bloons/red.png")
                 .type(MainApp.EntityType.BLOON)
                 .build();
-        bloon.addComponent(new BloonsComponent("red"));
-
-        return bloon;
-    }
-
-    @Spawns("bloon-blue")
-    public Entity newBloonBlue(SpawnData data) {
-        Entity bloon = FXGL.entityBuilder(data)
-                .at(MainApp.BLOON_SPAWN)
-                .view("bloons/blue.png")
-                .type(MainApp.EntityType.BLOON)
-                .build();
-        bloon.addComponent(new BloonsComponent("blue"));
+        bloon.addComponent(new BloonsComponent());
 
         return bloon;
     }
