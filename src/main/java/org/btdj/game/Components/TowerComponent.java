@@ -9,6 +9,7 @@ import javafx.geometry.Rectangle2D;
 import org.btdj.game.MainApp;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 public class TowerComponent extends Component {
@@ -29,10 +30,20 @@ public class TowerComponent extends Component {
 
     @Override
     public void onUpdate(double tpf) {
-        List<Entity> bloonsInRange = world.getEntitiesInRange(rangeCollider)
-                .stream()
-                .filter(e -> e.getType() == MainApp.EntityType.BLOON)
-                .toList();
+        List<Entity> bloonsInRange = world.getEntitiesInRange(rangeCollider);
+
+        switch (targetingPriority) {
+            case FIRST:
+                bloonsInRange = bloonsInRange
+                        .stream()
+                        .filter(e -> e.getType() == MainApp.EntityType.BLOON)
+                        .toList();
+                break;
+            case STRONGEST:
+                Comparator.comparing()
+                break;
+        }
+
 
         if (!bloonsInRange.isEmpty()) {
             Entity target = bloonsInRange.get(0);
@@ -43,7 +54,7 @@ public class TowerComponent extends Component {
 
             entity.setRotation(angle);
 
-            if (coolDown >= 0.2) {
+            if (coolDown >= 1) {
                 target.getComponent(BloonsComponent.class).pop();
                 coolDown = 0;
             }

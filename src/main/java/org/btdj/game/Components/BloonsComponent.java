@@ -48,6 +48,8 @@ public class BloonsComponent extends Component {
             }
         }
 
+        FXGL.play("pop.wav");
+
         updateProperties(properties.get("child").get(0).textValue());
     }
     public void remove() {

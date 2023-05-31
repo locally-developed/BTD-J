@@ -38,7 +38,7 @@ public class MainApp extends GameApplication {
         FXGL.getGameWorld().addEntityFactory(new BloonFactory());
 
         Entity bloon = FXGL.getGameWorld().spawn("bloon");
-        bloon.getComponent(BloonsComponent.class).updateProperties("black");
+        bloon.getComponent(BloonsComponent.class).updateProperties("pink");
         bloonList.add(bloon);
 
 //        FXGL.getGameTimer().runAtInterval(() -> {
