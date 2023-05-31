@@ -14,6 +14,7 @@ import java.io.IOException;
 public class BloonsComponent extends Component {
     private Point2D velocity = new Point2D(0,0);
     private JsonNode properties;
+    private int health;
     private String bloonType;
 
     @Override
@@ -28,6 +29,7 @@ public class BloonsComponent extends Component {
             System.out.println(e.getMessage());
         }
         this.bloonType = type;
+        this.health = properties.get("health").asInt();
         setVelocity(new Point2D(1.5 * properties.get("speed").asDouble(), 0));
 
         entity.getViewComponent().clearChildren();
