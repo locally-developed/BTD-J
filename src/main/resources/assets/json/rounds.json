@@ -6,60 +6,60 @@
     "red": 30
   },
   "3": {
-    "blue": 5,
-    "red": 20
+    "red": 20,
+    "blue": 5
   },
   "4": {
-    "blue": 15,
-    "red": 30
+    "red": 30,
+    "blue": 15
   },
   "5": {
-    "blue": 20,
-    "red": 5
+    "red": 5,
+    "blue": 20
   },
   "6": {
-    "green": 4,
+    "red": 15,
     "blue": 15,
-    "red": 15
+    "green": 4
   },
   "7": {
-    "green": 5,
+    "red": 20,
     "blue": 25,
-    "red": 20
+    "green": 5
   },
   "8": {
-    "green": 17,
+    "red": 10,
     "blue": 20,
-    "red": 10
+    "green": 17
   },
   "9": {
-    "green": 15,
+    "red": 10,
     "blue": 12,
-    "red": 10
+    "green": 15
   },
   "10": {
     "blue": 100
   },
   "11": {
-    "yellow": 2,
-    "green": 12,
+    "red": 5,
     "blue": 10,
-    "red": 5
+    "green": 12,
+    "yellow": 2
   },
   "12": {
-    "yellow": 5,
+    "blue": 15,
     "green": 10,
-    "blue": 15
+    "yellow": 5
   },
   "13": {
-    "yellow": 10,
+    "red": 20,
     "green": 25,
-    "red": 20
+    "yellow": 10
   },
   "14": {
-    "yellow": 15,
-    "green": 15,
+    "red": 15,
     "blue": 15,
-    "red": 15
+    "green": 15,
+    "yellow": 15
   }
 }

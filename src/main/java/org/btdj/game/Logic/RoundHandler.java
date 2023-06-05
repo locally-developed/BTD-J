@@ -4,36 +4,56 @@ import com.almasb.fxgl.dsl.FXGL;
 import com.almasb.fxgl.entity.Entity;
 import com.almasb.fxgl.time.TimerAction;
 import com.fasterxml.jackson.databind.JsonNode;
-import javafx.beans.property.ReadOnlyBooleanWrapper;
 import javafx.util.Duration;
 import org.btdj.game.Components.BloonsComponent;
 import org.btdj.game.MainApp;
 import org.btdj.game.Util.JsonParser;
 
 import java.io.IOException;
+import java.util.*;
 
 public class RoundHandler {
+    private JsonNode roundData;
+    private TimerAction spawnLoop = null;
+    private final ArrayList<String> spawnBuffer = new ArrayList<>();
+
     public RoundHandler(int round) {
-
-    }
-
-    public void start() {
-        JsonNode levelData;
         try {
-            levelData = JsonParser.getRoundData(1);
-
-            for (int i = 0; i < levelData.get("red").asInt(); i++) {
-                FXGL.getGameTimer().runOnceAfter(() -> {
-                    spawn("green");
-                }, Duration.seconds(0.5));
-            }
-
+            this.roundData = JsonParser.getRoundData(round);
+            loadBuffer();
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
+
+         this.spawnLoop = FXGL.getGameTimer().runAtInterval(() -> {
+            if (spawnBuffer.isEmpty()) spawnLoop.pause();
+
+            spawn(spawnBuffer.get(0));
+            spawnBuffer.remove(0);
+        }, Duration.seconds(1));
+        spawnLoop.pause();
     }
 
-    private void spawn(String type) {
+    private void loadBuffer() {
+        Iterator<Map.Entry<String, JsonNode>> nodes = this.roundData.fields();
+
+        while (nodes.hasNext()) {
+            Map.Entry<String, JsonNode> entry = nodes.next();
+
+            String type = entry.getKey();
+            int count = entry.getValue().asInt();
+
+            for (int i = 0; i < count; i++) {
+                spawnBuffer.add(type);
+            }
+        }
+    }
+
+    public void start() {
+        spawnLoop.resume();
+    }
+
+    public void spawn(String type) {
         Entity bloon = FXGL.getGameWorld().spawn("bloon");
         bloon.getComponent(BloonsComponent.class).updateProperties(type);
         MainApp.bloonList.add(bloon);

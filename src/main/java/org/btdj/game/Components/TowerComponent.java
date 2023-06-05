@@ -63,7 +63,7 @@ public class TowerComponent extends Component {
 
             entity.setRotation(angle);
 
-            if (coolDown >= 1) {
+            if (coolDown >= 0.1) {
                 target.getComponent(BloonsComponent.class).pop();
                 coolDown = 0;
             }

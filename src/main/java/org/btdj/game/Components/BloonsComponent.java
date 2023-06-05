@@ -15,13 +15,16 @@ public class BloonsComponent extends Component {
     private Point2D velocity = new Point2D(0,0);
     private JsonNode properties;
     private int health;
-
+    private int speedMultiplier = 1;
     private int RBE;
     private String bloonType;
 
     @Override
     public void onUpdate(double tpf) {
         entity.translate(velocity);
+    }
+    private void updateProperties() {
+        setVelocity(new Point2D(2 * properties.get("speed").asDouble() * speedMultiplier, 0));
     }
 
     public void updateProperties(String type) {
@@ -33,7 +36,7 @@ public class BloonsComponent extends Component {
         this.bloonType = type;
         this.health = properties.get("health").asInt();
         this.RBE = properties.get("RBE").asInt();
-        setVelocity(new Point2D(1.5 * properties.get("speed").asDouble(), 0));
+        setVelocity(new Point2D(2 * properties.get("speed").asDouble() * speedMultiplier, 0));
 
         entity.getViewComponent().clearChildren();
         entity.getViewComponent().addChild(FXGL.getAssetLoader().loadTexture(String.format("bloons/%S.png", bloonType)));
@@ -70,6 +73,10 @@ public class BloonsComponent extends Component {
 
     public void setVelocity(Point2D velocity) {
         this.velocity = velocity;
+    }
+    private void setSpeedMultiplier(int multiplier) {
+        this.speedMultiplier = multiplier;
+        updateProperties();
     }
 
     public Point2D getVelocity() {
