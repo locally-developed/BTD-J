@@ -22,7 +22,7 @@ public class TowerComponent extends Component {
     private final GameWorld world = FXGL.getGameWorld();
     private final Rectangle2D rangeCollider;
     private float coolDown = 0;
-    private Priority targetingPriority = Priority.STRONGEST;
+    private Priority targetingPriority = Priority.FIRST;
     public TowerComponent() {
         this.rangeCollider = new Rectangle2D(400, 100, 200, 200);
     }

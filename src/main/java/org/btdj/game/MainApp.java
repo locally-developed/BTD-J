@@ -13,6 +13,7 @@ import javafx.util.Duration;
 import org.btdj.game.Components.BloonsComponent;
 import org.btdj.game.Components.TowerComponent;
 import org.btdj.game.Factories.BloonFactory;
+import org.btdj.game.Logic.RoundHandler;
 import org.btdj.game.Util.JsonParser;
 
 import java.io.IOException;
@@ -40,20 +41,7 @@ public class MainApp extends GameApplication {
     protected void initGame() {
         FXGL.getGameWorld().addEntityFactory(new BloonFactory());
 
-        JsonNode levelData;
-        try {
-            levelData = JsonParser.getRoundData(1);
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
-        }
-
-        int spawnCount = 0;
-        TimerAction bloonSpawnLoop = FXGL.getGameTimer().runAtInterval(() -> {
-            Entity bloon = FXGL.getGameWorld().spawn("bloon");
-            bloon.getComponent(BloonsComponent.class).updateProperties("green");
-            bloonList.add(bloon);
-            //bloon.getComponent(BloonsComponent.class).setVelocity(new Point2D(3,0));
-        }, Duration.seconds(0.5));
+        new RoundHandler(0).start();
 
         tower = FXGL.entityBuilder()
                 .at(500, 200)
