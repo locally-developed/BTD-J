@@ -1,10 +1,11 @@
 package org.btdj.game;
 
-import com.almasb.fxgl.animation.Interpolators;
 import com.almasb.fxgl.app.GameApplication;
 import com.almasb.fxgl.app.GameSettings;
 import com.almasb.fxgl.dsl.FXGL;
 import com.almasb.fxgl.entity.Entity;
+import com.almasb.fxgl.time.TimerAction;
+import com.fasterxml.jackson.databind.JsonNode;
 import javafx.geometry.Point2D;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.*;
@@ -12,7 +13,9 @@ import javafx.util.Duration;
 import org.btdj.game.Components.BloonsComponent;
 import org.btdj.game.Components.TowerComponent;
 import org.btdj.game.Factories.BloonFactory;
+import org.btdj.game.Util.JsonParser;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class MainApp extends GameApplication {
@@ -37,16 +40,20 @@ public class MainApp extends GameApplication {
     protected void initGame() {
         FXGL.getGameWorld().addEntityFactory(new BloonFactory());
 
-        Entity bloon = FXGL.getGameWorld().spawn("bloon");
-        bloon.getComponent(BloonsComponent.class).updateProperties("pink");
-        bloonList.add(bloon);
+        JsonNode levelData;
+        try {
+            levelData = JsonParser.getRoundData(1);
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
 
-//        FXGL.getGameTimer().runAtInterval(() -> {
-//            Entity bloon = FXGL.getGameWorld().spawn("bloon");
-//            bloon.getComponent(BloonsComponent.class).updateProperties("pink");
-//            bloonList.add(bloon);
-//            //bloon.getComponent(BloonsComponent.class).setVelocity(new Point2D(3,0));
-//        }, Duration.seconds(0.5));
+        int spawnCount = 0;
+        TimerAction bloonSpawnLoop = FXGL.getGameTimer().runAtInterval(() -> {
+            Entity bloon = FXGL.getGameWorld().spawn("bloon");
+            bloon.getComponent(BloonsComponent.class).updateProperties("green");
+            bloonList.add(bloon);
+            //bloon.getComponent(BloonsComponent.class).setVelocity(new Point2D(3,0));
+        }, Duration.seconds(0.5));
 
         tower = FXGL.entityBuilder()
                 .at(500, 200)
@@ -58,9 +65,9 @@ public class MainApp extends GameApplication {
         Rectangle collider = new Rectangle(400+12.5, 100+12.5, 200, 200);
         collider.setOpacity(0.2);
         FXGL.getGameScene().addChild(collider);
-        tower.addComponent(new TowerComponent(bloonList));
+        tower.addComponent(new TowerComponent());
 
-        FXGL.play("music.wav");
+        //FXGL.play("music.wav");
     }
 
     public static void main(String[] args) {

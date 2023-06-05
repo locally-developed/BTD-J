@@ -15,6 +15,8 @@ public class BloonsComponent extends Component {
     private Point2D velocity = new Point2D(0,0);
     private JsonNode properties;
     private int health;
+
+    private int RBE;
     private String bloonType;
 
     @Override
@@ -30,6 +32,7 @@ public class BloonsComponent extends Component {
         }
         this.bloonType = type;
         this.health = properties.get("health").asInt();
+        this.RBE = properties.get("RBE").asInt();
         setVelocity(new Point2D(1.5 * properties.get("speed").asDouble(), 0));
 
         entity.getViewComponent().clearChildren();
@@ -37,6 +40,12 @@ public class BloonsComponent extends Component {
     }
 
     public void pop() {
+        FXGL.play("pop.wav");
+        if (health > 1) {
+            health--;
+            return;
+        }
+
         if (properties.get("child").size() == 0) {
             remove();
             return;
@@ -49,8 +58,6 @@ public class BloonsComponent extends Component {
                 MainApp.bloonList.add(bloon);
             }
         }
-
-        FXGL.play("pop.wav");
 
         updateProperties(properties.get("child").get(0).textValue());
     }
@@ -67,5 +74,12 @@ public class BloonsComponent extends Component {
 
     public Point2D getVelocity() {
         return this.velocity;
+    }
+
+    public int getHealth() {
+        return this.health;
+    }
+    public int getRBE() {
+        return this.RBE;
     }
 }

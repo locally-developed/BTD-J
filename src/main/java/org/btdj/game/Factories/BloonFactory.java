@@ -10,7 +10,7 @@ import org.btdj.game.MainApp;
 
 public class BloonFactory implements EntityFactory {
     @Spawns("bloon")
-    public Entity newBloonRed(SpawnData data) {
+    public Entity newBloon(SpawnData data) {
         Entity bloon = FXGL.entityBuilder(data)
                 .at(MainApp.BLOON_SPAWN)
                 .view("bloons/red.png")
