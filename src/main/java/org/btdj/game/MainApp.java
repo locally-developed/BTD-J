@@ -18,7 +18,7 @@ public class MainApp extends GameApplication {
     public enum EntityType {
         TOWER,
         BLOON,
-        PROJECTILE
+        //PROJECTILE
     }
     @Override
     protected void initSettings(GameSettings settings) {
