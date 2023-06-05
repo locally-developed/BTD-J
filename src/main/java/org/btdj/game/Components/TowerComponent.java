@@ -29,41 +29,41 @@ public class TowerComponent extends Component {
 
     @Override
     public void onUpdate(double tpf) {
-        List<Entity> bloonsInRange = world.getEntitiesInRange(rangeCollider);
+        if (coolDown >= 1) {
+            List<Entity> bloonsInRange = world.getEntitiesInRange(rangeCollider);
 
-        switch (targetingPriority) {
-            case FIRST:
-                bloonsInRange = bloonsInRange
-                        .stream()
-                        .filter(e -> e.getType() == MainApp.EntityType.BLOON)
-                        .toList();
-                break;
-            case STRONGEST:
-                bloonsInRange = bloonsInRange
-                        .stream()
-                        .filter(e -> e.getType() == MainApp.EntityType.BLOON)
-                        .sorted(Comparator.comparingInt(bloon ->
-                                bloon.getComponent(BloonsComponent.class).getRBE())
-                        )
-                        .toList();
-                break;
-        }
-
-
-        if (!bloonsInRange.isEmpty()) {
-            Entity target = null;
             switch (targetingPriority) {
-                case FIRST, WEAKEST -> target = bloonsInRange.get(0);
-                case LAST, STRONGEST -> target = bloonsInRange.get(bloonsInRange.size() - 1);
+                case FIRST:
+                    bloonsInRange = bloonsInRange
+                            .stream()
+                            .filter(e -> e.getType() == MainApp.EntityType.BLOON)
+                            .toList();
+                    break;
+                case STRONGEST:
+                    bloonsInRange = bloonsInRange
+                            .stream()
+                            .filter(e -> e.getType() == MainApp.EntityType.BLOON)
+                            .sorted(Comparator.comparingInt(bloon ->
+                                    bloon.getComponent(BloonsComponent.class).getRBE())
+                            )
+                            .toList();
+                    break;
             }
 
-            Point2D p1 = target.getPosition().subtract(entity.getPosition());
-            Point2D lookVector = new Point2D(1, 0);
-            double angle = lookVector.angle(p1);
 
-            entity.setRotation(angle);
+            if (!bloonsInRange.isEmpty()) {
+                Entity target = null;
+                switch (targetingPriority) {
+                    case FIRST, WEAKEST -> target = bloonsInRange.get(0);
+                    case LAST, STRONGEST -> target = bloonsInRange.get(bloonsInRange.size() - 1);
+                }
 
-            if (coolDown >= 0.1) {
+                Point2D p1 = target.getPosition().subtract(entity.getPosition());
+                Point2D lookVector = new Point2D(1, 0);
+                double angle = lookVector.angle(p1);
+
+                entity.setRotation(angle);
+
                 target.getComponent(BloonsComponent.class).pop();
                 coolDown = 0;
             }

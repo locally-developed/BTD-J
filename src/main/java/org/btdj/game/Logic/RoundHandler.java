@@ -26,7 +26,10 @@ public class RoundHandler {
         }
 
          this.spawnLoop = FXGL.getGameTimer().runAtInterval(() -> {
-            if (spawnBuffer.isEmpty()) spawnLoop.pause();
+            if (spawnBuffer.isEmpty()) {
+                spawnLoop.pause();
+                return;
+            }
 
             spawn(spawnBuffer.get(0));
             spawnBuffer.remove(0);
