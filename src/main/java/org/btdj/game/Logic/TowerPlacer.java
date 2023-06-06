@@ -1,9 +1,7 @@
 package org.btdj.game.Logic;
 
-import com.almasb.fxgl.dsl.FXGL;
-import com.almasb.fxgl.input.Input;
+import com.almasb.fxgl.input.UserAction;
 
 public class TowerPlacer {
-    public TowerPlacer(String tower) {
-    }
+    public final UserAction placeTower()
 }
