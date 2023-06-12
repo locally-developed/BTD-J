@@ -7,6 +7,7 @@ import com.almasb.fxgl.entity.Entity;
 import com.almasb.fxgl.input.MouseTrigger;
 import com.almasb.fxgl.input.TriggerListener;
 import javafx.geometry.Point2D;
+import javafx.scene.Group;
 import javafx.scene.effect.ColorAdjust;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
@@ -75,27 +76,34 @@ public class MainApp extends GameApplication {
     protected void initUI() {
         ImageView button = new ImageView(FXGL.getAssetLoader().loadImage("ui/tower_bg.png"));
         button.setX(FXGL.getSettings().getWidth()-275);
-        button.setY(300);
+        button.setY(200);
 
         ColorAdjust adjust = new ColorAdjust();
-        adjust.setHue(1.0);
+        adjust.setHue(0.5);
         adjust.setSaturation(1.0);
         button.setEffect(adjust);
 
-        new ButtonComponent(button);
-        button.setOnMouseClicked(e -> {
+        ImageView towerPortrait = new ImageView(FXGL.getAssetLoader().loadImage("ui/towerPortraits/dartMonkey/default.png"));
+        towerPortrait.setX(FXGL.getSettings().getWidth()-265);
+        towerPortrait.setY(210);
+
+        Group buttonGroup = new Group(button, towerPortrait);
+
+        new ButtonComponent(buttonGroup, button, adjust);
+        buttonGroup.setOnMouseClicked(e -> {
             towerPlacer = FXGL.entityBuilder()
                     .at(0,0)
                     .view(new Rectangle(25,25, Color.RED))
                     .buildAndAttach();
             towerPlacer.addComponent(new TowerPlaceComponent());
         });
-        FXGL.getGameScene().addUINode(button);
+
+        FXGL.getGameScene().addUINode(buttonGroup);
 
         ImageView playButton = new ImageView(FXGL.getAssetLoader().loadImage("ui/button_play.png"));
         playButton.setX(FXGL.getSettings().getWidth()-275);
         playButton.setY(900);
-        new ButtonComponent(playButton);
+        new ButtonComponent(playButton, new ColorAdjust());
         playButton.setOnMouseClicked(e -> {
             if (!isRoundActive) {
                 isRoundActive = true;
@@ -108,7 +116,7 @@ public class MainApp extends GameApplication {
         ImageView boostButton = new ImageView(FXGL.getAssetLoader().loadImage("ui/button_skip.png"));
         boostButton.setX(FXGL.getSettings().getWidth()-125);
         boostButton.setY(900);
-        new ButtonComponent(boostButton);
+        new ButtonComponent(boostButton, new ColorAdjust());
         boostButton.setOnMouseClicked(e -> {
             globalSpeedModifier = globalSpeedModifier == 1 ? 2 : 1;
             currentRound.doubleTime = globalSpeedModifier == 2;
@@ -119,7 +127,7 @@ public class MainApp extends GameApplication {
         thing.setFont(FXGL.getAssetLoader().loadFont("LuckiestGuy-Regular.ttf").newFont(52));
         thing.setFill(Color.WHITE);
         thing.setStroke(Color.BLACK);
-        thing.setStrokeWidth(3);
+        thing.setStrokeWidth(2);
         thing.setStrokeType(StrokeType.OUTSIDE);
         thing.setStrokeLineJoin(StrokeLineJoin.ROUND);
         FXGL.entityBuilder()
