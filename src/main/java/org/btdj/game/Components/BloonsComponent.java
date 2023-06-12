@@ -65,9 +65,6 @@ public class BloonsComponent extends Component {
     public void remove() {
         FXGL.getGameWorld().removeEntity(entity);
     }
-    public void setVelocity() {
-        this.velocity = new Point2D(1,2);
-    }
 
     public void setVelocity(Point2D velocity) {
         this.velocity = velocity;

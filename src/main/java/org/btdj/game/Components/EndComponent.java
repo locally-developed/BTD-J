@@ -3,7 +3,6 @@ package org.btdj.game.Components;
 import com.almasb.fxgl.dsl.FXGL;
 import com.almasb.fxgl.entity.Entity;
 import com.almasb.fxgl.entity.component.Component;
-import com.sun.tools.javac.Main;
 import javafx.geometry.Rectangle2D;
 import org.btdj.game.MainApp;
 

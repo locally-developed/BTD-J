@@ -3,13 +3,10 @@ package org.btdj.game.Components;
 import com.almasb.fxgl.dsl.FXGL;
 import com.almasb.fxgl.entity.Entity;
 import com.almasb.fxgl.entity.component.Component;
-import com.almasb.fxgl.input.MouseTrigger;
-import com.almasb.fxgl.input.TriggerListener;
 import javafx.geometry.Point2D;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.shape.Rectangle;
 import org.btdj.game.MainApp;
-import org.jetbrains.annotations.NotNull;
 
 public class TowerPlaceComponent extends Component {
     private boolean placed = false;

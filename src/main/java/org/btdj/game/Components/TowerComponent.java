@@ -7,7 +7,6 @@ import com.almasb.fxgl.entity.component.Component;
 import javafx.geometry.Point2D;
 import javafx.geometry.Rectangle2D;
 import org.btdj.game.MainApp;
-import org.w3c.dom.css.Rect;
 
 import java.util.Comparator;
 import java.util.List;
