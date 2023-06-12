@@ -57,12 +57,6 @@ public class MainApp extends GameApplication {
 //        Entity tower = FXGL.getGameWorld().spawn("tower");
 //        tower.setPosition(500, 200);
 
-        towerPlacer = FXGL.entityBuilder()
-                .at(0,0)
-                .view(new Rectangle(25,25, Color.RED))
-                .buildAndAttach();
-        towerPlacer.addComponent(new TowerPlaceComponent());
-
         Rectangle collider = new Rectangle(400+12.5, 100+12.5, 200, 200);
         collider.setOpacity(0.2);
         FXGL.getGameScene().addChild(collider);
@@ -79,6 +73,28 @@ public class MainApp extends GameApplication {
                 .buildAndAttach()
                 .addComponent(new EndComponent());
 
+        FXGL.play("music.wav");
+    }
+
+    @Override
+    protected void initUI() {
+        Rectangle button = new Rectangle(
+                FXGL.getSettings().getWidth()-275,
+                300,
+                150,
+                150
+        );
+        button.setOnMouseClicked(e -> {
+            towerPlacer = FXGL.entityBuilder()
+                    .at(0,0)
+                    .view(new Rectangle(25,25, Color.RED))
+                    .buildAndAttach();
+            towerPlacer.addComponent(new TowerPlaceComponent());
+        });
+        button.setOnMouseEntered(e -> {
+            button.
+        });
+
         Text thing = new Text(String.valueOf(gameHealth));
         thing.setFont(FXGL.getAssetLoader().loadFont("LuckiestGuy-Regular.ttf").newFont(52));
         thing.setFill(Color.WHITE);
@@ -91,18 +107,7 @@ public class MainApp extends GameApplication {
                 .view(thing)
                 .buildAndAttach()
                 .addComponent(new ValueDisplayComponent());
-
-        //FXGL.play("music.wav");
-    }
-
-    @Override
-    protected void initUI() {
-        Rectangle sideMenu = new Rectangle(
-                FXGL.getSettings().getWidth()-300,
-                0,
-                300,
-                FXGL.getSettings().getHeight()
-        );;
+        FXGL.getGameScene().addUINode(button);
     }
 
     @Override
@@ -116,7 +121,7 @@ public class MainApp extends GameApplication {
             @Override
             protected void onButtonBegin(@NotNull MouseTrigger mouseTrigger) {
                 super.onButtonBegin(mouseTrigger);
-                if (towerPlacer.isActive()) {
+                if (towerPlacer != null && towerPlacer.isActive()) {
                     towerPlacer.getComponent(TowerPlaceComponent.class).place();
                 }
             }

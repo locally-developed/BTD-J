@@ -20,7 +20,6 @@ public class EndComponent extends Component {
         for (Entity bloon: entitiesNearby) {
             MainApp.gameHealth -= bloon.getComponent(BloonsComponent.class).getRBE();
             bloon.getComponent(BloonsComponent.class).remove();
-            System.out.println(MainApp.gameHealth);
         }
     }
 }
