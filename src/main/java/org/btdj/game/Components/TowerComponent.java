@@ -7,6 +7,7 @@ import com.almasb.fxgl.entity.component.Component;
 import javafx.geometry.Point2D;
 import javafx.geometry.Rectangle2D;
 import org.btdj.game.MainApp;
+import org.w3c.dom.css.Rect;
 
 import java.util.Comparator;
 import java.util.List;
@@ -20,7 +21,7 @@ public class TowerComponent extends Component {
     }
 
     private final GameWorld world = FXGL.getGameWorld();
-    private final Rectangle2D rangeCollider;
+    private Rectangle2D rangeCollider;
     private float coolDown = 0;
     private Priority targetingPriority = Priority.FIRST;
     public TowerComponent() {
@@ -69,6 +70,10 @@ public class TowerComponent extends Component {
             }
         }
         coolDown += tpf;
+    }
+
+    public void setRangeCollider(Rectangle2D collider) {
+        this.rangeCollider = collider;
     }
 
     public void setTargetingPriority(Priority priority) {

@@ -12,19 +12,17 @@ import java.io.IOException;
 
 
 public class BloonsComponent extends Component {
-    private Point2D velocity = new Point2D(0,0);
+    private Point2D velocity = new Point2D(1,0);
     private JsonNode properties;
     private int health;
-    private int speedMultiplier = 1;
+    private int speedMultiplier = 4;
+    private double speed;
     private int RBE;
     private String bloonType;
 
     @Override
     public void onUpdate(double tpf) {
-        entity.translate(velocity);
-    }
-    private void updateProperties() {
-        setVelocity(new Point2D(2 * properties.get("speed").asDouble() * speedMultiplier, 0));
+        entity.translate(this.velocity.multiply(2 * speed * speedMultiplier));
     }
 
     public void updateProperties(String type) {
@@ -36,7 +34,7 @@ public class BloonsComponent extends Component {
         this.bloonType = type;
         this.health = properties.get("health").asInt();
         this.RBE = properties.get("RBE").asInt();
-        setVelocity(new Point2D(2 * properties.get("speed").asDouble() * speedMultiplier, 0));
+        this.speed = properties.get("speed").asDouble();
 
         entity.getViewComponent().clearChildren();
         entity.getViewComponent().addChild(FXGL.getAssetLoader().loadTexture(String.format("bloons/%S.png", bloonType)));
@@ -76,7 +74,6 @@ public class BloonsComponent extends Component {
     }
     private void setSpeedMultiplier(int multiplier) {
         this.speedMultiplier = multiplier;
-        updateProperties();
     }
 
     public Point2D getVelocity() {
