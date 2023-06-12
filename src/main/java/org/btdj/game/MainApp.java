@@ -4,12 +4,9 @@ import com.almasb.fxgl.app.GameApplication;
 import com.almasb.fxgl.app.GameSettings;
 import com.almasb.fxgl.dsl.FXGL;
 import com.almasb.fxgl.entity.Entity;
-import com.almasb.fxgl.entity.level.LevelLoader;
 import com.almasb.fxgl.input.MouseTrigger;
 import com.almasb.fxgl.input.TriggerListener;
 import javafx.geometry.Point2D;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.*;
 import javafx.scene.text.Text;
@@ -21,7 +18,6 @@ import org.btdj.game.Logic.WaypointHandler;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
-import java.util.Collections;
 
 public class MainApp extends GameApplication {
     public static final Point2D BLOON_SPAWN = new Point2D(-50,425);
@@ -45,21 +41,18 @@ public class MainApp extends GameApplication {
 
     public static final ArrayList<Entity> bloonList = new ArrayList<>();
     public static int gameHealth = 200;
+    public static int gameMoney = 300;
+    private static int gameRound = 0;
+    public static int globalSpeedModifier = 1;
+    private static boolean isRoundActive = false;
+
+    private RoundHandler currentRound;
     public static Entity towerPlacer;
 
     @Override
     protected void initGame() {
         FXGL.getGameWorld().addEntityFactory(new BloonFactory());
         FXGL.getGameWorld().addEntityFactory(new TowerFactory());
-
-        new RoundHandler(5).start();
-
-//        Entity tower = FXGL.getGameWorld().spawn("tower");
-//        tower.setPosition(500, 200);
-
-        Rectangle collider = new Rectangle(400+12.5, 100+12.5, 200, 200);
-        collider.setOpacity(0.2);
-        FXGL.getGameScene().addChild(collider);
 
         FXGL.entityBuilder()
                 .view("ui/level.png")
@@ -73,7 +66,7 @@ public class MainApp extends GameApplication {
                 .buildAndAttach()
                 .addComponent(new EndComponent());
 
-        FXGL.play("music.wav");
+        //FXGL.play("music.wav");
     }
 
     @Override
@@ -84,6 +77,7 @@ public class MainApp extends GameApplication {
                 150,
                 150
         );
+        new ButtonComponent(button, Color.LIGHTGRAY, Color.GRAY);
         button.setOnMouseClicked(e -> {
             towerPlacer = FXGL.entityBuilder()
                     .at(0,0)
@@ -91,11 +85,40 @@ public class MainApp extends GameApplication {
                     .buildAndAttach();
             towerPlacer.addComponent(new TowerPlaceComponent());
         });
-        button.setOnMouseEntered(e -> {
-            button.
-        });
+        FXGL.getGameScene().addUINode(button);
 
-        Text thing = new Text(String.valueOf(gameHealth));
+        Rectangle playButton = new Rectangle(
+                FXGL.getSettings().getWidth()-275,
+                900,
+                100,
+                100
+        );
+        new ButtonComponent(playButton, Color.GREEN, Color.DARKGREEN);
+        playButton.setOnMouseClicked(e -> {
+            if (!isRoundActive) {
+                isRoundActive = true;
+                currentRound = new RoundHandler(++gameRound);
+                currentRound.start();
+            }
+        });
+        FXGL.getGameScene().addUINode(playButton);
+
+        Rectangle boostButton = new Rectangle(
+                FXGL.getSettings().getWidth()-150,
+                900,
+                100,
+                100
+        );
+        new ButtonComponent(boostButton, Color.YELLOW, Color.DARKKHAKI);
+        boostButton.setOnMouseClicked(e -> {
+            globalSpeedModifier = globalSpeedModifier == 1 ? 2 : 1;
+            currentRound.doubleTime = globalSpeedModifier == 2 ? true : false;
+        });
+        FXGL.getGameScene().addUINode(boostButton);
+
+
+
+        Text thing = new Text();
         thing.setFont(FXGL.getAssetLoader().loadFont("LuckiestGuy-Regular.ttf").newFont(52));
         thing.setFill(Color.WHITE);
         thing.setStroke(Color.BLACK);
@@ -106,8 +129,7 @@ public class MainApp extends GameApplication {
                 .at(50,50)
                 .view(thing)
                 .buildAndAttach()
-                .addComponent(new ValueDisplayComponent());
-        FXGL.getGameScene().addUINode(button);
+                .addComponent(new HealthDisplayComponent());
     }
 
     @Override
@@ -135,6 +157,14 @@ public class MainApp extends GameApplication {
 
     public static void removePlacer() {
         FXGL.getGameWorld().removeEntity(towerPlacer);
+    }
+    public static void declareRoundComplete() {
+        if (gameHealth <= 0) {
+            System.exit(0);
+            return;
+        }
+
+        isRoundActive = false;
     }
 
     public static void main(String[] args) {

@@ -15,14 +15,14 @@ public class BloonsComponent extends Component {
     private Point2D velocity = new Point2D(1,0);
     private JsonNode properties;
     private int health;
-    private int speedMultiplier = 4;
+    private int speedMultiplier = 1;
     private double speed;
     private int RBE;
     private String bloonType;
 
     @Override
     public void onUpdate(double tpf) {
-        entity.translate(this.velocity.multiply(2 * speed * speedMultiplier));
+        entity.translate(this.velocity.multiply(2 * speed * speedMultiplier * MainApp.globalSpeedModifier));
     }
 
     public void updateProperties(String type) {

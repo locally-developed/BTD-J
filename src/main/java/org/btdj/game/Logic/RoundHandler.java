@@ -17,6 +17,9 @@ public class RoundHandler {
     private TimerAction spawnLoop = null;
     private final ArrayList<String> spawnBuffer = new ArrayList<>();
 
+    private int processDelay = 0;
+    public boolean doubleTime = false;
+
     public RoundHandler(int round) {
         try {
             this.roundData = JsonParser.getRoundData(round);
@@ -26,14 +29,22 @@ public class RoundHandler {
         }
 
          this.spawnLoop = FXGL.getGameTimer().runAtInterval(() -> {
-            if (spawnBuffer.isEmpty()) {
-                spawnLoop.pause();
-                return;
-            }
+             if (processDelay > 0 || doubleTime) {
+                 if (spawnBuffer.isEmpty()) {
+                     if (FXGL.getGameWorld().getEntitiesByType(MainApp.EntityType.BLOON).isEmpty()) {
+                         spawnLoop.pause();
+                         MainApp.declareRoundComplete();
+                     }
+                     return;
+                 }
 
-            spawn(spawnBuffer.get(0));
-            spawnBuffer.remove(0);
-        }, Duration.seconds(1));
+                 spawn(spawnBuffer.get(0));
+                 spawnBuffer.remove(0);
+                 processDelay = 0;
+             } else {
+                 processDelay++;
+             }
+        }, Duration.seconds(0.5));
         spawnLoop.pause();
     }
 
