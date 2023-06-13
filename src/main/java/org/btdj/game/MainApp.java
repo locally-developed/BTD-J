@@ -18,7 +18,6 @@ import org.btdj.game.Factories.BloonFactory;
 import org.btdj.game.Factories.TowerFactory;
 import org.btdj.game.Logic.RoundHandler;
 import org.btdj.game.Logic.WaypointHandler;
-import org.btdj.game.Util.Handler3D;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
@@ -46,7 +45,7 @@ public class MainApp extends GameApplication {
     public static final ArrayList<Entity> bloonList = new ArrayList<>();
     public static int gameHealth = 200;
     public static int gameMoney = 300;
-    private static int gameRound = 13;
+    private static int gameRound = 0;
     public static int globalSpeedModifier = 1;
     private static boolean isRoundActive = false;
 
@@ -55,8 +54,6 @@ public class MainApp extends GameApplication {
 
     @Override
     protected void initGame() {
-        Handler3D.run();
-
         FXGL.getGameWorld().addEntityFactory(new BloonFactory());
         FXGL.getGameWorld().addEntityFactory(new TowerFactory());
 
@@ -96,7 +93,7 @@ public class MainApp extends GameApplication {
         buttonGroup.setOnMouseClicked(e -> {
             towerPlacer = FXGL.entityBuilder()
                     .at(0,0)
-                    .view(new Rectangle(25,25, Color.RED))
+                    .view(new Rectangle(50,50, Color.RED))
                     .buildAndAttach();
             towerPlacer.addComponent(new TowerPlaceComponent());
         });
