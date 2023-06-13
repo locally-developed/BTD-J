@@ -18,6 +18,7 @@ import org.btdj.game.Factories.BloonFactory;
 import org.btdj.game.Factories.TowerFactory;
 import org.btdj.game.Logic.RoundHandler;
 import org.btdj.game.Logic.WaypointHandler;
+import org.btdj.game.Util.Handler3D;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
@@ -54,6 +55,8 @@ public class MainApp extends GameApplication {
 
     @Override
     protected void initGame() {
+        Handler3D.run();
+
         FXGL.getGameWorld().addEntityFactory(new BloonFactory());
         FXGL.getGameWorld().addEntityFactory(new TowerFactory());
 
