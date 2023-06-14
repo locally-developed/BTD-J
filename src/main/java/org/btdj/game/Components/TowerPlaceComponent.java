@@ -8,12 +8,16 @@ import javafx.geometry.Rectangle2D;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import org.btdj.game.Components.Towers.TackShooterComponent;
+import org.btdj.game.Components.Towers.TowerComponent;
 import org.btdj.game.MainApp;
 
 public class TowerPlaceComponent extends Component {
     private boolean placed = false;
     private boolean canPlace = false;
-    public TowerPlaceComponent() {}
+    private final String tower;
+    public TowerPlaceComponent(String tower) {
+        this.tower = tower;
+    }
     @Override
     public void onUpdate(double tpf) {
         if (!this.placed) {
@@ -36,7 +40,7 @@ public class TowerPlaceComponent extends Component {
 
         this.placed = true;
         Point2D position = FXGL.getInput().getMousePositionWorld();
-        Entity tower = FXGL.getGameWorld().spawn("tackShooter");
+        Entity tower = FXGL.getGameWorld().spawn(this.tower);
         tower.setPosition(position);
 //        tower.getComponent(TowerComponent.class).setRangeCollider(
 //                new Rectangle2D(position.getX()-100, position.getY()-100, 200, 200)

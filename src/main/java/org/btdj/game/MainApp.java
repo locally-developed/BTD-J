@@ -84,7 +84,7 @@ public class MainApp extends GameApplication {
                     .at(0,0)
                     .view(new Rectangle(50,50, Color.RED))
                     .buildAndAttach();
-            towerPlacer.addComponent(new TowerPlaceComponent());
+            towerPlacer.addComponent(new TowerPlaceComponent("dartMonkey"));
         });
         FXGL.getGameScene().addUINode(dartMonkeyButton);
 
@@ -99,7 +99,7 @@ public class MainApp extends GameApplication {
                     .at(0,0)
                     .view(new Rectangle(50,50, Color.RED))
                     .buildAndAttach();
-            towerPlacer.addComponent(new TowerPlaceComponent());
+            towerPlacer.addComponent(new TowerPlaceComponent("tackShooter"));
         });
         FXGL.getGameScene().addUINode(tackShooterButton);
 

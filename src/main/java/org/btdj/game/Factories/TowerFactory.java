@@ -13,8 +13,8 @@ import org.btdj.game.Components.Towers.TackShooterComponent;
 import org.btdj.game.EntityType;
 
 public class TowerFactory implements EntityFactory {
-    @Spawns("tower")
-    public Entity newTower(SpawnData data) {
+    @Spawns("dartMonkey")
+    public Entity newDartMonkey(SpawnData data) {
         Entity tower = FXGL.entityBuilder()
                 .view(new Rectangle(25, 25, Color.BLUE))
                 .type(EntityType.TOWER)

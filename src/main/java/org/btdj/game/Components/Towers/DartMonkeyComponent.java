@@ -3,16 +3,14 @@ package org.btdj.game.Components.Towers;
 import com.almasb.fxgl.dsl.FXGL;
 import com.almasb.fxgl.entity.Entity;
 import com.almasb.fxgl.entity.GameWorld;
-import com.almasb.fxgl.entity.component.Component;
 import javafx.geometry.Point2D;
-import javafx.geometry.Rectangle2D;
 import org.btdj.game.Components.BloonsComponent;
 import org.btdj.game.EntityType;
 
 import java.util.Comparator;
 import java.util.List;
 
-public class DartMonkeyComponent extends Component {
+public class DartMonkeyComponent extends TowerComponent{
     public enum Priority {
         FIRST,
         LAST,
@@ -21,7 +19,6 @@ public class DartMonkeyComponent extends Component {
     }
 
     private final GameWorld world = FXGL.getGameWorld();
-    private Rectangle2D rangeCollider;
     private float coolDown = 1;
     private Priority targetingPriority = Priority.FIRST;
 //    public TowerComponent() {
@@ -36,7 +33,7 @@ public class DartMonkeyComponent extends Component {
     @Override
     public void onUpdate(double tpf) {
         if (coolDown >= 1) {
-            List<Entity> bloonsInRange = world.getEntitiesInRange(rangeCollider);
+            List<Entity> bloonsInRange = world.getEntitiesInRange(super.rangeCollider);
 
             switch (targetingPriority) {
                 case FIRST:
@@ -75,10 +72,6 @@ public class DartMonkeyComponent extends Component {
             }
         }
         coolDown += tpf;
-    }
-
-    public void setRangeCollider(Rectangle2D collider) {
-        this.rangeCollider = collider;
     }
 
     public void setTargetingPriority(Priority priority) {
