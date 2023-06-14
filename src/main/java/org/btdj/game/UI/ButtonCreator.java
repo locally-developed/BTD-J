@@ -3,10 +3,10 @@ package org.btdj.game.UI;
 import com.almasb.fxgl.dsl.FXGL;
 import javafx.geometry.Point2D;
 import javafx.scene.Group;
+import javafx.scene.Node;
 import javafx.scene.effect.ColorAdjust;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import org.btdj.game.Components.ButtonComponent;
 
 public class ButtonCreator {
     public static Group create(Point2D position, String imagePath, double backgroundHue) {
@@ -25,7 +25,28 @@ public class ButtonCreator {
         towerPortrait.setY((125-image.getHeight())/2 + position.getY());
 
         Group buttonGroup = new Group(background, towerPortrait);
-        new ButtonComponent(buttonGroup, background, adjust);
+        hoverEffect(buttonGroup, background, adjust);
         return buttonGroup;
+    }
+
+    public static void hoverEffect(Node button, ColorAdjust adjust) {
+        button.setOnMouseEntered(e -> {
+            adjust.setBrightness(-0.2);
+            button.setEffect(adjust);
+        });
+        button.setOnMouseExited(e -> {
+            adjust.setBrightness(0);
+            button.setEffect(adjust);
+        });
+    }
+    public static void hoverEffect(Node buttonGroup, Node button, ColorAdjust adjust) {
+        buttonGroup.setOnMouseEntered(e -> {
+            adjust.setBrightness(-0.2);
+            button.setEffect(adjust);
+        });
+        buttonGroup.setOnMouseExited(e -> {
+            adjust.setBrightness(0);
+            button.setEffect(adjust);
+        });
     }
 }

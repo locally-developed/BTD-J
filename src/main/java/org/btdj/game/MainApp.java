@@ -106,7 +106,7 @@ public class MainApp extends GameApplication {
         ImageView playButton = new ImageView(FXGL.getAssetLoader().loadImage("ui/button_play.png"));
         playButton.setX(FXGL.getSettings().getWidth()-275);
         playButton.setY(900);
-        new ButtonComponent(playButton, new ColorAdjust());
+        ButtonCreator.hoverEffect(playButton, new ColorAdjust());
         playButton.setOnMouseClicked(e -> {
             if (!isRoundActive) {
                 isRoundActive = true;
@@ -119,7 +119,7 @@ public class MainApp extends GameApplication {
         ImageView boostButton = new ImageView(FXGL.getAssetLoader().loadImage("ui/button_skip.png"));
         boostButton.setX(FXGL.getSettings().getWidth()-125);
         boostButton.setY(900);
-        new ButtonComponent(boostButton, new ColorAdjust());
+        ButtonCreator.hoverEffect(boostButton, new ColorAdjust());
         boostButton.setOnMouseClicked(e -> {
             globalSpeedModifier = globalSpeedModifier == 1 ? 2 : 1;
             currentRound.doubleTime = globalSpeedModifier == 2;
