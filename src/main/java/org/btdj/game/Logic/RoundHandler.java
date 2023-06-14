@@ -6,6 +6,7 @@ import com.almasb.fxgl.time.TimerAction;
 import com.fasterxml.jackson.databind.JsonNode;
 import javafx.util.Duration;
 import org.btdj.game.Components.BloonsComponent;
+import org.btdj.game.EntityType;
 import org.btdj.game.MainApp;
 import org.btdj.game.Util.JsonParser;
 
@@ -31,7 +32,7 @@ public class RoundHandler {
          this.spawnLoop = FXGL.getGameTimer().runAtInterval(() -> {
              if (processDelay > 0 || doubleTime) {
                  if (spawnBuffer.isEmpty()) {
-                     if (FXGL.getGameWorld().getEntitiesByType(MainApp.EntityType.BLOON).isEmpty()) {
+                     if (FXGL.getGameWorld().getEntitiesByType(EntityType.BLOON).isEmpty()) {
                          spawnLoop.pause();
                          MainApp.declareRoundComplete();
                      }

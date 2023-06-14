@@ -15,20 +15,18 @@ import javafx.scene.shape.*;
 import javafx.scene.text.Text;
 import org.btdj.game.Components.*;
 import org.btdj.game.Factories.BloonFactory;
+import org.btdj.game.Factories.DartFactory;
 import org.btdj.game.Factories.TowerFactory;
 import org.btdj.game.Logic.RoundHandler;
 import org.btdj.game.Logic.WaypointHandler;
+import org.btdj.game.UI.ButtonCreator;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 
 public class MainApp extends GameApplication {
     public static final Point2D BLOON_SPAWN = new Point2D(-50,425);
-    public enum EntityType {
-        TOWER,
-        BLOON,
-        //PROJECTILE
-    }
+
     @Override
     protected void initSettings(GameSettings settings) {
         settings.setWidth(1920);
@@ -56,6 +54,7 @@ public class MainApp extends GameApplication {
     protected void initGame() {
         FXGL.getGameWorld().addEntityFactory(new BloonFactory());
         FXGL.getGameWorld().addEntityFactory(new TowerFactory());
+        FXGL.getGameWorld().addEntityFactory(new DartFactory());
 
         FXGL.entityBuilder()
                 .view("ui/level.png")
@@ -74,31 +73,35 @@ public class MainApp extends GameApplication {
 
     @Override
     protected void initUI() {
-        ImageView button = new ImageView(FXGL.getAssetLoader().loadImage("ui/tower_bg.png"));
-        button.setX(FXGL.getSettings().getWidth()-275);
-        button.setY(200);
+        Group dartMonkeyButton = ButtonCreator.create(
+                new Point2D(FXGL.getSettings().getWidth()-265, 200),
+                "ui/towerPortraits/dartMonkey/default.png",
+                0.5
+        );
 
-        ColorAdjust adjust = new ColorAdjust();
-        adjust.setHue(0.5);
-        adjust.setSaturation(1.0);
-        button.setEffect(adjust);
-
-        ImageView towerPortrait = new ImageView(FXGL.getAssetLoader().loadImage("ui/towerPortraits/dartMonkey/default.png"));
-        towerPortrait.setX(FXGL.getSettings().getWidth()-265);
-        towerPortrait.setY(210);
-
-        Group buttonGroup = new Group(button, towerPortrait);
-
-        new ButtonComponent(buttonGroup, button, adjust);
-        buttonGroup.setOnMouseClicked(e -> {
+        dartMonkeyButton.setOnMouseClicked(e -> {
             towerPlacer = FXGL.entityBuilder()
                     .at(0,0)
                     .view(new Rectangle(50,50, Color.RED))
                     .buildAndAttach();
             towerPlacer.addComponent(new TowerPlaceComponent());
         });
+        FXGL.getGameScene().addUINode(dartMonkeyButton);
 
-        FXGL.getGameScene().addUINode(buttonGroup);
+        Group tackShooterButton = ButtonCreator.create(
+                new Point2D(FXGL.getSettings().getWidth()-135, 200),
+                "ui/towerPortraits/tackShooter/default.png",
+                -0.25
+        );
+
+        tackShooterButton.setOnMouseClicked(e -> {
+            towerPlacer = FXGL.entityBuilder()
+                    .at(0,0)
+                    .view(new Rectangle(50,50, Color.RED))
+                    .buildAndAttach();
+            towerPlacer.addComponent(new TowerPlaceComponent());
+        });
+        FXGL.getGameScene().addUINode(tackShooterButton);
 
         ImageView playButton = new ImageView(FXGL.getAssetLoader().loadImage("ui/button_play.png"));
         playButton.setX(FXGL.getSettings().getWidth()-275);

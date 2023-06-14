@@ -1,4 +1,4 @@
-package org.btdj.game.Components;
+package org.btdj.game.Components.Towers;
 
 import com.almasb.fxgl.dsl.FXGL;
 import com.almasb.fxgl.entity.Entity;
@@ -6,12 +6,13 @@ import com.almasb.fxgl.entity.GameWorld;
 import com.almasb.fxgl.entity.component.Component;
 import javafx.geometry.Point2D;
 import javafx.geometry.Rectangle2D;
-import org.btdj.game.MainApp;
+import org.btdj.game.Components.BloonsComponent;
+import org.btdj.game.EntityType;
 
 import java.util.Comparator;
 import java.util.List;
 
-public class TowerComponent extends Component {
+public class DartMonkeyComponent extends Component {
     public enum Priority {
         FIRST,
         LAST,
@@ -21,11 +22,16 @@ public class TowerComponent extends Component {
 
     private final GameWorld world = FXGL.getGameWorld();
     private Rectangle2D rangeCollider;
-    private float coolDown = 0;
+    private float coolDown = 1;
     private Priority targetingPriority = Priority.FIRST;
-    public TowerComponent() {
-        this.rangeCollider = new Rectangle2D(400, 100, 200, 200);
-    }
+//    public TowerComponent() {
+//        this.rangeCollider = new Rectangle2D(
+//                entity.getX()-100,
+//                entity.getY()-100,
+//                200,
+//                200
+//        );
+//    }
 
     @Override
     public void onUpdate(double tpf) {
@@ -36,13 +42,13 @@ public class TowerComponent extends Component {
                 case FIRST:
                     bloonsInRange = bloonsInRange
                             .stream()
-                            .filter(e -> e.getType() == MainApp.EntityType.BLOON)
+                            .filter(e -> e.getType() == EntityType.BLOON)
                             .toList();
                     break;
                 case STRONGEST:
                     bloonsInRange = bloonsInRange
                             .stream()
-                            .filter(e -> e.getType() == MainApp.EntityType.BLOON)
+                            .filter(e -> e.getType() == EntityType.BLOON)
                             .sorted(Comparator.comparingInt(bloon ->
                                     bloon.getComponent(BloonsComponent.class).getRBE())
                             )
