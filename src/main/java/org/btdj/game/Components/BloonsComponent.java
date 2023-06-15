@@ -15,7 +15,7 @@ public class BloonsComponent extends Component {
     private Point2D velocity = new Point2D(1,0);
     private JsonNode properties;
     private int health;
-    private int speedMultiplier = 1;
+    private double speedMultiplier = 1;
     private double speed;
     private int RBE;
     private String bloonType;
@@ -70,7 +70,7 @@ public class BloonsComponent extends Component {
     public void setVelocity(Point2D velocity) {
         this.velocity = velocity;
     }
-    private void setSpeedMultiplier(int multiplier) {
+    public void setSpeedMultiplier(double multiplier) {
         this.speedMultiplier = multiplier;
     }
 
