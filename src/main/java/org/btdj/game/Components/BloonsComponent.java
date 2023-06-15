@@ -37,7 +37,7 @@ public class BloonsComponent extends Component {
         this.speed = properties.get("speed").asDouble();
 
         entity.getViewComponent().clearChildren();
-        entity.getViewComponent().addChild(FXGL.getAssetLoader().loadTexture(String.format("bloons/%S.png", bloonType)));
+        entity.getViewComponent().addChild(FXGL.getAssetLoader().loadTexture(String.format("bloons/%S/default.png", bloonType)));
     }
 
     public void pop() {
