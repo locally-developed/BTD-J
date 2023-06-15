@@ -4,20 +4,21 @@ import com.almasb.fxgl.dsl.FXGL;
 import com.almasb.fxgl.entity.Entity;
 import com.almasb.fxgl.entity.GameWorld;
 import javafx.geometry.Point2D;
+import javafx.geometry.Rectangle2D;
 import org.btdj.game.Components.BloonsComponent;
 import org.btdj.game.EntityType;
 
 import java.util.Comparator;
 import java.util.List;
 
-public class DartMonkeyComponent extends TowerComponent{
+public class BombShooterComponent extends TowerComponent{
     private final GameWorld world = FXGL.getGameWorld();
-    private double coolDown = 1;
+    private double coolDown = 1.5;
     private TargetingPriority targetingPriority = TargetingPriority.FIRST;
 
     @Override
     public void onUpdate(double tpf) {
-        if (coolDown >= 1) {
+        if (coolDown >= 1.5) {
             List<Entity> bloonsInRange = world.getEntitiesInRange(super.rangeCollider);
 
             switch (targetingPriority) {
@@ -52,7 +53,19 @@ public class DartMonkeyComponent extends TowerComponent{
 
                 entity.setRotation(angle);
 
-                target.getComponent(BloonsComponent.class).pop();
+                FXGL.entityBuilder()
+                        .at(target.getPosition().subtract(new Point2D(75,75)))
+                        .view(FXGL.getAssetLoader().loadTexture("explosion.gif"))
+                        .buildAndAttach();
+                bloonsInRange = world.getEntitiesInRange(new Rectangle2D(
+                        target.getX()-25,
+                        target.getY()-25,
+                        50,
+                        50
+                )).stream().filter(e -> e.getType() == EntityType.BLOON).toList();
+                for (Entity bloon: bloonsInRange) {
+                    bloon.getComponent(BloonsComponent.class).pop();
+                }
                 coolDown = 0;
             }
         }

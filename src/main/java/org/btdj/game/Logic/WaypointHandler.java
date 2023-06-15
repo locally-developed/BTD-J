@@ -7,11 +7,11 @@ import org.btdj.game.Components.WaypointComponent;
 public class WaypointHandler {
     public WaypointHandler() {
         FXGL.entityBuilder()
-                .at(800, 450)
+                .at(815, 450)
                 .buildAndAttach()
                 .addComponent(new WaypointComponent(new Point2D(0, -1)));
         FXGL.entityBuilder()
-                .at(800, 150)
+                .at(815, 150)
                 .buildAndAttach()
                 .addComponent(new WaypointComponent(new Point2D(-1, 0)));
         FXGL.entityBuilder()
@@ -39,15 +39,15 @@ public class WaypointHandler {
                 .buildAndAttach()
                 .addComponent(new WaypointComponent(new Point2D(1, 0)));
         FXGL.entityBuilder()
-                .at(1220, 325)
+                .at(1245, 325)
                 .buildAndAttach()
                 .addComponent(new WaypointComponent(new Point2D(0, 1)));
         FXGL.entityBuilder()
-                .at(1220, 770)
+                .at(1245, 795)
                 .buildAndAttach()
                 .addComponent(new WaypointComponent(new Point2D(-1, 0)));
         FXGL.entityBuilder()
-                .at(680, 770)
+                .at(695, 795)
                 .buildAndAttach()
                 .addComponent(new WaypointComponent(new Point2D(0, 1)));
     }

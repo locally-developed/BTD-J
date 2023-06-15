@@ -18,7 +18,7 @@ public class WaypointComponent extends Component {
     @Override
     public void onUpdate(double tpf) {
         List<Entity> entitiesNearby = FXGL.getGameWorld().getEntitiesInRange(
-                new Rectangle2D(entity.getX()-25, entity.getY()-25, 50, 50)
+                new Rectangle2D(entity.getX()-5, entity.getY()-5, 10, 10)
         );
         entitiesNearby = entitiesNearby.stream().filter(e -> e.getType() == EntityType.BLOON).toList();
 

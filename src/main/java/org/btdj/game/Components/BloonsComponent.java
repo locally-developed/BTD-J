@@ -42,6 +42,7 @@ public class BloonsComponent extends Component {
 
     public void pop() {
         FXGL.play("pop.wav");
+        MainApp.addMoney(1);
         if (health > 1) {
             health--;
             return;

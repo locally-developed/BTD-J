@@ -20,6 +20,7 @@ import org.btdj.game.Factories.TowerFactory;
 import org.btdj.game.Logic.RoundHandler;
 import org.btdj.game.Logic.WaypointHandler;
 import org.btdj.game.UI.ButtonCreator;
+import org.btdj.game.UI.TextCreator;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
@@ -42,13 +43,15 @@ public class MainApp extends GameApplication {
 
     public static final ArrayList<Entity> bloonList = new ArrayList<>();
     public static int gameHealth = 200;
-    public static int gameMoney = 300;
+    public static int gameMoney = 650;
     private static int gameRound = 0;
     public static int globalSpeedModifier = 1;
     private static boolean isRoundActive = false;
 
     private RoundHandler currentRound;
     public static Entity towerPlacer;
+    public static Text healthDisplay;
+    public static Text moneyDisplay;
 
     @Override
     protected void initGame() {
@@ -103,6 +106,21 @@ public class MainApp extends GameApplication {
         });
         FXGL.getGameScene().addUINode(tackShooterButton);
 
+        Group bombShooterButton = ButtonCreator.create(
+                new Point2D(FXGL.getSettings().getWidth()-265, 350),
+                "ui/towerPortraits/bombShooter/default.png",
+                -0.5
+        );
+
+        bombShooterButton.setOnMouseClicked(e -> {
+            towerPlacer = FXGL.entityBuilder()
+                    .at(0,0)
+                    .view(new Rectangle(50,50, Color.RED))
+                    .buildAndAttach();
+            towerPlacer.addComponent(new TowerPlaceComponent("bombShooter"));
+        });
+        FXGL.getGameScene().addUINode(bombShooterButton);
+
         ImageView playButton = new ImageView(FXGL.getAssetLoader().loadImage("ui/button_play.png"));
         playButton.setX(FXGL.getSettings().getWidth()-275);
         playButton.setY(900);
@@ -126,18 +144,15 @@ public class MainApp extends GameApplication {
         });
         FXGL.getGameScene().addUINode(boostButton);
 
-        Text thing = new Text();
-        thing.setFont(FXGL.getAssetLoader().loadFont("LuckiestGuy-Regular.ttf").newFont(52));
-        thing.setFill(Color.WHITE);
-        thing.setStroke(Color.BLACK);
-        thing.setStrokeWidth(2);
-        thing.setStrokeType(StrokeType.OUTSIDE);
-        thing.setStrokeLineJoin(StrokeLineJoin.ROUND);
-        FXGL.entityBuilder()
-                .at(50,50)
-                .view(thing)
-                .buildAndAttach()
-                .addComponent(new HealthDisplayComponent());
+        healthDisplay = TextCreator.create(String.valueOf(gameHealth));
+        healthDisplay.setX(50);
+        healthDisplay.setY(50);
+
+        moneyDisplay = TextCreator.create(String.valueOf(gameMoney));
+        moneyDisplay.setX(200);
+        moneyDisplay.setY(50);
+
+        FXGL.getGameScene().addUINodes(healthDisplay, moneyDisplay);
     }
 
     @Override
@@ -172,7 +187,17 @@ public class MainApp extends GameApplication {
             return;
         }
 
+        addMoney(100+gameRound);
         isRoundActive = false;
+    }
+
+    public static void addMoney(int money) {
+        gameMoney += money;
+        moneyDisplay.setText(String.valueOf(gameMoney));
+    }
+    public static void removeHealth(int health) {
+        gameHealth -= health;
+        healthDisplay.setText(String.valueOf(gameHealth));
     }
 
     public static void main(String[] args) {

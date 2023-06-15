@@ -18,7 +18,7 @@ public class EndComponent extends Component {
         entitiesNearby = entitiesNearby.stream().filter(e -> e.getType() == EntityType.BLOON).toList();
 
         for (Entity bloon: entitiesNearby) {
-            MainApp.gameHealth -= bloon.getComponent(BloonsComponent.class).getRBE();
+            MainApp.removeHealth(bloon.getComponent(BloonsComponent.class).getRBE());
             bloon.getComponent(BloonsComponent.class).remove();
         }
     }
