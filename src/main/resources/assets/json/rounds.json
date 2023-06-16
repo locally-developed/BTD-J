@@ -77,12 +77,12 @@
     "green": [{"count": 80, "mods": []}]
   },
   "19": {
-    "green": {"count": 10, "mods": []},
+    "green": [{"count": 10, "mods": []}],
     "yellow": [
       {"count": 4, "mods": []},
       {"count": 5, "mods": ["REGROW"]}
     ],
-    "pink": {"count": 5, "mods": []}
+    "pink": [{"count": 5, "mods": []}]
   },
   "20": {
     "black": [{"count": 6, "mods": []}]

@@ -82,9 +82,20 @@ public class BloonsComponent extends Component {
             modifiers.add(BloonModifier.valueOf(tag.asText()));
         }
 
-        Texture image = FXGL.getAssetLoader().loadTexture(String.format("bloons/%s/%s.png", bloonType, bloonVariant));
+        Texture image;
+        if (bloonType.equals("ceramic")) {
+            image = FXGL.getAssetLoader().loadTexture(String.format("bloons/%s/%s%d.png",
+                    bloonType,
+                    bloonVariant,
+                    Math.abs((int) Math.ceil(health/2.0) - 5)
+                    ));
+        } else {
+            image = FXGL.getAssetLoader().loadTexture(String.format("bloons/%s/%s.png", bloonType, bloonVariant));
+        }
+
         image.setScaleX(0.5);
         image.setScaleY(0.5);
+        image.setCache(true);
         entity.getViewComponent().clearChildren();
         entity.getViewComponent().addChild(image);
     }
@@ -94,6 +105,18 @@ public class BloonsComponent extends Component {
         MainApp.addMoney(1);
         if (health > 1) {
             health--;
+
+            Texture image = FXGL.getAssetLoader().loadTexture(String.format("bloons/%s/%s%d.png",
+                    bloonType,
+                    bloonVariant,
+                    Math.abs((int) Math.ceil(health/2.0) - 5)
+            ));
+            image.setScaleX(0.5);
+            image.setScaleY(0.5);
+            image.setCache(true);
+            entity.getViewComponent().clearChildren();
+            entity.getViewComponent().addChild(image);
+
             return;
         }
 
@@ -108,6 +131,10 @@ public class BloonsComponent extends Component {
                 Entity bloon = FXGL.getGameWorld().spawn("bloon");
                 bloon.setPosition(entity.getPosition().add(new Point2D(-10 * i, 0)));
                 bloon.getComponent(BloonsComponent.class).updateProperties(properties.get("child").get(i).textValue());
+                bloon.getComponent(BloonsComponent.class).setVelocity(new Point2D(
+                        Math.signum(velocity.getX()),
+                        Math.signum(velocity.getY())
+                        ));
                 MainApp.bloonList.add(bloon);
             }
         }

@@ -86,5 +86,13 @@
     "child": ["rainbow", "rainbow"],
     "RBE": 104,
     "tags": ["GLUE_IMMUNE"]
+  },
+  "moab": {
+    "speed": 0.5,
+    "health": 100,
+    "parent": "",
+    "child": ["rainbow", "rainbow"],
+    "RBE": 104,
+    "tags": ["GLUE_IMMUNE"]
   }
 }

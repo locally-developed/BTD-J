@@ -16,7 +16,6 @@ public class BloonFactory implements EntityFactory {
     public Entity newBloon(SpawnData data) {
         return FXGL.entityBuilder(data)
                 .at(MainApp.BLOON_SPAWN)
-                .view("bloons/red/default.png")
                 .bbox(BoundingShape.box(100,130))
                 .type(EntityType.BLOON)
                 .with(new BloonsComponent())

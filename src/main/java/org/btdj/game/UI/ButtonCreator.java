@@ -14,6 +14,7 @@ public class ButtonCreator {
         ImageView background = new ImageView(FXGL.getAssetLoader().loadImage("ui/tower_bg.png"));
         background.setX(position.getX());
         background.setY(position.getY());
+        background.setCache(true);
 
         ColorAdjust adjust = new ColorAdjust();
         adjust.setHue(backgroundHue);
@@ -24,6 +25,7 @@ public class ButtonCreator {
         ImageView towerPortrait = new ImageView(image);
         towerPortrait.setX((100-image.getWidth())/2 + position.getX());
         towerPortrait.setY((125-image.getHeight())/2 + position.getY());
+        towerPortrait.setCache(true);
 
         Text moneyText = TextCreator.create(String.format("$%d", money), 24);
         moneyText.setX(position.getX()+25);

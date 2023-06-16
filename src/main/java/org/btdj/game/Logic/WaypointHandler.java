@@ -43,11 +43,11 @@ public class WaypointHandler {
                 .buildAndAttach()
                 .addComponent(new WaypointComponent(new Point2D(0, 1)));
         FXGL.entityBuilder()
-                .at(1260, 815)
+                .at(1260, 830)
                 .buildAndAttach()
                 .addComponent(new WaypointComponent(new Point2D(-1, 0)));
         FXGL.entityBuilder()
-                .at(695, 815)
+                .at(680, 830)
                 .buildAndAttach()
                 .addComponent(new WaypointComponent(new Point2D(0, 1)));
     }

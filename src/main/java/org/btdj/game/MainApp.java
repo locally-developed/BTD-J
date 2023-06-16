@@ -43,7 +43,7 @@ public class MainApp extends GameApplication {
 
     public static final ArrayList<Entity> bloonList = new ArrayList<>();
     public static int gameHealth = 200;
-    public static int gameMoney = 2000;
+    public static int gameMoney = 1650;
     public static int gameXP = 0;
     private static int gameRound = 30;
     public static int globalSpeedModifier = 1;
