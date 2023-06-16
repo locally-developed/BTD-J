@@ -7,47 +7,47 @@ import org.btdj.game.Components.WaypointComponent;
 public class WaypointHandler {
     public WaypointHandler() {
         FXGL.entityBuilder()
-                .at(815, 450)
+                .at(845, 400)
                 .buildAndAttach()
                 .addComponent(new WaypointComponent(new Point2D(0, -1)));
         FXGL.entityBuilder()
-                .at(815, 150)
+                .at(845, 135)
                 .buildAndAttach()
                 .addComponent(new WaypointComponent(new Point2D(-1, 0)));
         FXGL.entityBuilder()
-                .at(500, 150)
+                .at(490, 135)
                 .buildAndAttach()
                 .addComponent(new WaypointComponent(new Point2D(0, 1)));
         FXGL.entityBuilder()
-                .at(500, 850)
+                .at(490, 925)
                 .buildAndAttach()
                 .addComponent(new WaypointComponent(new Point2D(-1, 0)));
         FXGL.entityBuilder()
-                .at(220, 850)
+                .at(200, 925)
                 .buildAndAttach()
                 .addComponent(new WaypointComponent(new Point2D(0, -1)));
         FXGL.entityBuilder()
-                .at(220, 580)
+                .at(200, 555)
                 .buildAndAttach()
                 .addComponent(new WaypointComponent(new Point2D(1, 0)));
         FXGL.entityBuilder()
-                .at(1025, 580)
+                .at(1075, 555)
                 .buildAndAttach()
                 .addComponent(new WaypointComponent(new Point2D(0, -1)));
         FXGL.entityBuilder()
-                .at(1025, 325)
+                .at(1075, 300)
                 .buildAndAttach()
                 .addComponent(new WaypointComponent(new Point2D(1, 0)));
         FXGL.entityBuilder()
-                .at(1245, 325)
+                .at(1260, 300)
                 .buildAndAttach()
                 .addComponent(new WaypointComponent(new Point2D(0, 1)));
         FXGL.entityBuilder()
-                .at(1245, 795)
+                .at(1260, 815)
                 .buildAndAttach()
                 .addComponent(new WaypointComponent(new Point2D(-1, 0)));
         FXGL.entityBuilder()
-                .at(695, 795)
+                .at(695, 815)
                 .buildAndAttach()
                 .addComponent(new WaypointComponent(new Point2D(0, 1)));
     }

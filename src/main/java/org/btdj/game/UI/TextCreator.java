@@ -16,6 +16,8 @@ public class TextCreator {
         text.setStrokeWidth(2);
         text.setStrokeType(StrokeType.OUTSIDE);
         text.setStrokeLineJoin(StrokeLineJoin.ROUND);
+
+        text.setCache(true);
         return text;
     }
     public static Text create(String placeholder, int fontSize) {
@@ -27,6 +29,8 @@ public class TextCreator {
         text.setStrokeWidth(2);
         text.setStrokeType(StrokeType.OUTSIDE);
         text.setStrokeLineJoin(StrokeLineJoin.ROUND);
+
+        text.setCache(true);
         return text;
     }
 }

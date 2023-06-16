@@ -26,7 +26,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 
 public class MainApp extends GameApplication {
-    public static final Point2D BLOON_SPAWN = new Point2D(-50,425);
+    public static final Point2D BLOON_SPAWN = new Point2D(-50,400);
 
     @Override
     protected void initSettings(GameSettings settings) {
@@ -43,9 +43,9 @@ public class MainApp extends GameApplication {
 
     public static final ArrayList<Entity> bloonList = new ArrayList<>();
     public static int gameHealth = 200;
-    public static int gameMoney = 650;
+    public static int gameMoney = 2000;
     public static int gameXP = 0;
-    private static int gameRound = 0;
+    private static int gameRound = 30;
     public static int globalSpeedModifier = 1;
     private static boolean isRoundActive = false;
 
@@ -224,7 +224,7 @@ public class MainApp extends GameApplication {
     public static void removePlacer() {
         FXGL.getGameWorld().removeEntity(towerPlacer);
         towerPlacer = null;
-        gameMoney -= towerPlaceCost;
+        addMoney(-towerPlaceCost);
         towerPlaceCost = 0;
         towerPlaceHint.setVisible(false);
     }

@@ -115,7 +115,7 @@ public class BloonsComponent extends Component {
         updateProperties(properties.get("child").get(0).textValue());
     }
     public void remove() {
-        regrowLoop.expire();
+        if (regrowLoop != null) regrowLoop.expire();
         FXGL.getGameWorld().removeEntity(entity);
     }
 
