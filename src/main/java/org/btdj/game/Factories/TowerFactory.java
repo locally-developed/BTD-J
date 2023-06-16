@@ -8,10 +8,7 @@ import com.almasb.fxgl.entity.Spawns;
 import javafx.geometry.Point2D;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
-import org.btdj.game.Components.Towers.BombShooterComponent;
-import org.btdj.game.Components.Towers.DartMonkeyComponent;
-import org.btdj.game.Components.Towers.GlueGunnerComponent;
-import org.btdj.game.Components.Towers.TackShooterComponent;
+import org.btdj.game.Components.Towers.*;
 import org.btdj.game.EntityType;
 
 public class TowerFactory implements EntityFactory {
@@ -51,6 +48,17 @@ public class TowerFactory implements EntityFactory {
                 .view(new Rectangle(25, 25, Color.PURPLE))
                 .type(EntityType.TOWER)
                 .with(new GlueGunnerComponent())
+                .build();
+        tower.setRotationOrigin(new Point2D(25.0/2,25.0/2));
+
+        return tower;
+    }
+    @Spawns("dartlingGunner")
+    public Entity newDartlingGunner(SpawnData data) {
+        Entity tower = FXGL.entityBuilder()
+                .view(new Rectangle(25, 25, Color.ORANGE))
+                .type(EntityType.TOWER)
+                .with(new DartlingGunnerComponent())
                 .build();
         tower.setRotationOrigin(new Point2D(25.0/2,25.0/2));
 

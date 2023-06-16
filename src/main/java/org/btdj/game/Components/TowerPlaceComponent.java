@@ -45,18 +45,11 @@ public class TowerPlaceComponent extends Component {
         Rectangle2D rangeCollider = new Rectangle2D(position.getX()-100, position.getY()-100, 200, 200);
 
         switch (this.tower) {
-            case "dartMonkey":
-                tower.getComponent(DartMonkeyComponent.class).setRangeCollider(rangeCollider);
-                break;
-            case "tackShooter":
-                tower.getComponent(TackShooterComponent.class).setRangeCollider(rangeCollider);
-                break;
-            case "bombShooter":
-                tower.getComponent(BombShooterComponent.class).setRangeCollider(rangeCollider);
-                break;
-            case "glueGunner":
-                tower.getComponent(GlueGunnerComponent.class).setRangeCollider(rangeCollider);
-                break;
+            case "dartMonkey" -> tower.getComponent(DartMonkeyComponent.class).setRangeCollider(rangeCollider);
+            case "tackShooter" -> tower.getComponent(TackShooterComponent.class).setRangeCollider(rangeCollider);
+            case "bombShooter" -> tower.getComponent(BombShooterComponent.class).setRangeCollider(rangeCollider);
+            case "glueGunner" -> tower.getComponent(GlueGunnerComponent.class).setRangeCollider(rangeCollider);
+            case "dartlingGunner" -> tower.getComponent(DartlingGunnerComponent.class).setRangeCollider(rangeCollider);
         }
 
         Circle collider = new Circle(position.getX()+12.5, position.getY()+12.5, 150);

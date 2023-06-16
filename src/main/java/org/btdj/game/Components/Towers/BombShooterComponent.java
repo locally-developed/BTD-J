@@ -10,6 +10,7 @@ import javafx.geometry.Rectangle2D;
 import javafx.util.Duration;
 import org.btdj.game.Components.BloonsComponent;
 import org.btdj.game.EntityType;
+import org.btdj.game.MainApp;
 
 import java.util.List;
 
@@ -51,6 +52,6 @@ public class BombShooterComponent extends TowerComponent{
                 coolDown = 0;
             });
         }
-        coolDown += tpf;
+        coolDown += tpf * MainApp.globalSpeedModifier;
     }
 }

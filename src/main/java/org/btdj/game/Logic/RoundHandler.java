@@ -20,7 +20,6 @@ public class RoundHandler{
     private final ArrayList<String > spawnBuffer = new ArrayList<>();
     private final ArrayList<ArrayList<BloonModifier>> spawnBufferModifiers = new ArrayList<>();
     private int processDelay = 0;
-    public boolean doubleTime = false;
 
     public RoundHandler(int round) {
         try {
@@ -31,7 +30,7 @@ public class RoundHandler{
         }
 
          this.spawnLoop = FXGL.getGameTimer().runAtInterval(() -> {
-             if (processDelay > 0 || doubleTime) {
+             if (processDelay > 0 || MainApp.globalSpeedModifier > 1) {
                  if (spawnBuffer.isEmpty()) {
                      if (FXGL.getGameWorld().getEntitiesByType(EntityType.BLOON).isEmpty()) {
                          spawnLoop.expire();

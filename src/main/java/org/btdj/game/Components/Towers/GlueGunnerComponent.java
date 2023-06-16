@@ -4,6 +4,7 @@ import com.almasb.fxgl.dsl.FXGL;
 import com.almasb.fxgl.texture.Texture;
 import javafx.util.Duration;
 import org.btdj.game.Components.BloonsComponent;
+import org.btdj.game.MainApp;
 
 public class GlueGunnerComponent extends TowerComponent{
     private double coolDown = 1;
@@ -31,6 +32,6 @@ public class GlueGunnerComponent extends TowerComponent{
             }, e -> !e.getComponent(BloonsComponent.class).getModifiers().contains(BloonModifier.GLUE_IMMUNE) &&
                     !e.getComponent(BloonsComponent.class).glued);
         }
-        coolDown += tpf;
+        coolDown += tpf * MainApp.globalSpeedModifier;
     }
 }

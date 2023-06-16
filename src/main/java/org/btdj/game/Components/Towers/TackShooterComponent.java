@@ -7,6 +7,7 @@ import javafx.geometry.Point2D;
 import javafx.geometry.Rectangle2D;
 import org.btdj.game.Components.DartComponent;
 import org.btdj.game.EntityType;
+import org.btdj.game.MainApp;
 
 import java.util.List;
 
@@ -51,7 +52,7 @@ public class TackShooterComponent extends Component {
             return;
         }
 
-        coolDown += tpf;
+        coolDown += tpf * MainApp.globalSpeedModifier;
     }
     public void setRangeCollider(Rectangle2D collider) {
         this.rangeCollider = collider;

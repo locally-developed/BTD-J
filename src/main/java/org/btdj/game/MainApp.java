@@ -108,6 +108,14 @@ public class MainApp extends GameApplication {
         glueGunnerButton.setOnMouseClicked(e -> createTowerPlacer("glueGunner"));
         FXGL.getGameScene().addUINode(glueGunnerButton);
 
+        Group dartlingGunnerButton = ButtonCreator.create(
+                new Point2D(FXGL.getSettings().getWidth()-265, 500),
+                "ui/towerPortraits/dartlingGunner/default.png",
+                0
+        );
+        dartlingGunnerButton.setOnMouseClicked(e -> createTowerPlacer("dartlingGunner"));
+        FXGL.getGameScene().addUINode(dartlingGunnerButton);
+
         ImageView playButton = new ImageView(FXGL.getAssetLoader().loadImage("ui/button_play.png"));
         playButton.setX(FXGL.getSettings().getWidth()-275);
         playButton.setY(900);
@@ -125,10 +133,7 @@ public class MainApp extends GameApplication {
         boostButton.setX(FXGL.getSettings().getWidth()-125);
         boostButton.setY(900);
         ButtonCreator.hoverEffect(boostButton, new ColorAdjust());
-        boostButton.setOnMouseClicked(e -> {
-            globalSpeedModifier = globalSpeedModifier == 1 ? 2 : 1;
-            currentRound.doubleTime = globalSpeedModifier == 2;
-        });
+        boostButton.setOnMouseClicked(e -> globalSpeedModifier = globalSpeedModifier == 1 ? 2 : 1);
         FXGL.getGameScene().addUINode(boostButton);
 
         healthDisplay = TextCreator.create(String.valueOf(gameHealth));
