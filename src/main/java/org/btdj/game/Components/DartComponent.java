@@ -21,7 +21,6 @@ public class DartComponent extends Component {
                 .stream()
                 .filter(e -> e.getType() == EntityType.BLOON)
                 .toList();
-        System.out.println(collidingBloons.size());
 
         if (!collidingBloons.isEmpty()) {
             collidingBloons.get(0).getComponent(BloonsComponent.class).pop();

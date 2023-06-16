@@ -10,6 +10,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import org.btdj.game.Components.Towers.BombShooterComponent;
 import org.btdj.game.Components.Towers.DartMonkeyComponent;
+import org.btdj.game.Components.Towers.GlueGunnerComponent;
 import org.btdj.game.Components.Towers.TackShooterComponent;
 import org.btdj.game.EntityType;
 
@@ -39,6 +40,17 @@ public class TowerFactory implements EntityFactory {
                 .view(new Rectangle(25, 25, Color.RED))
                 .type(EntityType.TOWER)
                 .with(new BombShooterComponent())
+                .build();
+        tower.setRotationOrigin(new Point2D(25.0/2,25.0/2));
+
+        return tower;
+    }
+    @Spawns("glueGunner")
+    public Entity newGlueGunner(SpawnData data) {
+        Entity tower = FXGL.entityBuilder()
+                .view(new Rectangle(25, 25, Color.PURPLE))
+                .type(EntityType.TOWER)
+                .with(new GlueGunnerComponent())
                 .build();
         tower.setRotationOrigin(new Point2D(25.0/2,25.0/2));
 

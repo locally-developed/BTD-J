@@ -15,7 +15,7 @@ public class DartFactory implements EntityFactory {
     @Spawns("dart")
     public Entity newDart(SpawnData data) {
         return FXGL.entityBuilder()
-                .view(new Rectangle(10,10, Color.RED))
+                .view(new Rectangle(2,10, Color.BLACK))
                 .type(EntityType.PROJECTILE)
                 .bbox(BoundingShape.box(10,10))
                 .with(new DartComponent())

@@ -1,65 +1,190 @@
 {
   "1": {
-    "red": 14
+    "red": [{"count": 20, "mods": ["CAMO"]}]
   },
   "2": {
-    "red": 30
+    "red": [{"count": 35, "mods": []}]
   },
   "3": {
-    "red": 20,
-    "blue": 5
+    "red": [{"count": 25, "mods": []}],
+    "blue": [{"count": 5, "mods": []}]
   },
   "4": {
-    "red": 30,
-    "blue": 15
+    "red": [{"count": 35, "mods": []}],
+    "blue": [{"count": 18, "mods": []}]
   },
   "5": {
-    "red": 5,
-    "blue": 20
+    "red": [{"count": 5, "mods": []}],
+    "blue": [{"count": 27, "mods": []}]
   },
   "6": {
-    "red": 15,
-    "blue": 15,
-    "green": 4
+    "red": [{"count": 15, "mods": []}],
+    "blue": [{"count": 15, "mods": []}],
+    "green": [{"count": 4, "mods": []}]
   },
   "7": {
-    "red": 20,
-    "blue": 25,
-    "green": 5
+    "red": [{"count": 20, "mods": []}],
+    "blue": [{"count": 20, "mods": []}],
+    "green": [{"count": 5, "mods": []}]
   },
   "8": {
-    "red": 10,
-    "blue": 20,
-    "green": 17
+    "red": [{"count": 10, "mods": []}],
+    "blue": [{"count": 10, "mods": []}],
+    "green": [{"count": 14, "mods": []}]
   },
   "9": {
-    "red": 10,
-    "blue": 12,
-    "green": 15
+    "green": [{"count": 30, "mods": []}]
   },
   "10": {
-    "blue": 100
+    "blue": [{"count": 102, "mods": []}]
   },
   "11": {
-    "red": 5,
-    "blue": 10,
-    "green": 12,
-    "yellow": 2
+    "red": [{"count": 6, "mods": []}],
+    "blue": [{"count": 12, "mods": []}],
+    "green": [{"count": 12, "mods": []}],
+    "yellow": [{"count": 3, "mods": []}]
   },
   "12": {
-    "blue": 15,
-    "green": 10,
-    "yellow": 5
+    "blue": [{"count": 15, "mods": []}],
+    "green": [{"count": 10, "mods": []}],
+    "yellow": [{"count": 5, "mods": []}]
   },
   "13": {
-    "red": 20,
-    "green": 25,
-    "yellow": 10
+    "blue": [{"count": 50, "mods": []}],
+    "green": [{"count": 23, "mods": []}]
   },
   "14": {
-    "red": 15,
-    "blue": 15,
-    "green": 15,
-    "yellow": 15
+    "red": [{"count": 49, "mods": []}],
+    "blue": [{"count": 15, "mods": []}],
+    "green": [{"count": 10, "mods": []}],
+    "yellow": [{"count": 9, "mods": []}]
+  },
+  "15": {
+    "red": [{"count": 20, "mods": []}],
+    "blue": [{"count": 15, "mods": []}],
+    "green": [{"count": 12, "mods": []}],
+    "yellow": [{"count": 10, "mods": []}],
+    "pink": [{"count": 5, "mods": []}]
+  },
+  "16": {
+    "green": [{"count": 40, "mods": []}],
+    "yellow": [{"count": 8, "mods": []}]
+  },
+  "17": {
+    "yellow": [{"count": 12, "mods": ["REGROW"]}]
+  },
+  "18": {
+    "green": [{"count": 80, "mods": []}]
+  },
+  "19": {
+    "green": {"count": 10, "mods": []},
+    "yellow": [
+      {"count": 4, "mods": []},
+      {"count": 5, "mods": ["REGROW"]}
+    ],
+    "pink": {"count": 5, "mods": []}
+  },
+  "20": {
+    "black": [{"count": 6, "mods": []}]
+  },
+  "21": {
+    "yellow": [{"count": 40, "mods": []}],
+    "pink": [{"count": 14, "mods": []}]
+  },
+  "22": {
+    "white": [{"count": 16, "mods": []}]
+  },
+  "23": {
+    "black": [{"count": 7, "mods": []}],
+    "white": [{"count": 7, "mods": []}]
+  },
+  "24": {
+    "blue": [{"count": 20, "mods": []}],
+    "green": [{"count": 1, "mods": ["CAMO"]}]
+  },
+  "25": {
+    "yellow": [{"count": 25, "mods": ["REGROW"]}],
+    "purple": [{"count": 10, "mods": []}]
+  },
+  "26": {
+    "pink": [{"count": 23, "mods": []}],
+    "zebra": [{"count": 4, "mods": []}]
+  },
+  "27": {
+    "red": [{"count": 100, "mods": []}],
+    "blue": [{"count": 60, "mods": []}],
+    "green": [{"count": 45, "mods": []}],
+    "yellow": [{"count": 45, "mods": []}]
+  },
+  "28": {
+    "lead": [{"count": 6, "mods": []}]
+  },
+  "29": {
+    "yellow": [
+      {"count": 50, "mods": []},
+      {"count": 15, "mods": ["REGROW"]}
+    ]
+  },
+  "30": {
+    "lead": [{"count": 9, "mods": []}]
+  },
+  "31": {
+    "black": [{"count": 8, "mods": []}],
+    "white": [{"count": 8, "mods": []}],
+    "zebra": [
+      {"count": 8, "mods": []},
+      {"count": 2, "mods": ["REGROW"]}
+    ]
+  },
+  "32": {
+    "black": [{"count": 15, "mods": []}],
+    "white": [{"count": 20, "mods": []}],
+    "purple": [{"count": 10, "mods": []}]
+  },
+  "33": {
+    "red": [{"count": 20, "mods": ["CAMO"]}],
+    "yellow": [{"count": 13, "mods": ["CAMO"]}]
+  },
+  "34": {
+    "yellow": [{"count": 160, "mods": []}],
+    "zebra": [{"count": 6, "mods": []}]
+  },
+  "35": {
+    "pink": [{"count": 35, "mods": []}],
+    "black": [{"count": 30, "mods": []}],
+    "white": [{"count": 25, "mods": []}],
+    "rainbow": [{"count": 5, "mods": []}]
+  },
+  "36": {
+    "pink": [{"count": 140, "mods": []}],
+    "green": [{"count": 20, "mods": ["CAMO", "REGROW"]}]
+  },
+  "37": {
+    "black": [{"count": 25, "mods": []}],
+    "white": [
+      {"count": 25, "mods": []},
+      {"count": 7, "mods": ["CAMO"]}
+    ],
+    "zebra": [{"count": 10, "mods": []}],
+    "lead": [{"count": 15, "mods": []}]
+  },
+  "38": {
+    "pink": [{"count": 42, "mods": []}],
+    "white": [{"count": 17, "mods": []}],
+    "zebra": [{"count": 10, "mods": []}],
+    "lead": [{"count": 14, "mods": []}],
+    "ceramic": [{"count": 2, "mods": []}]
+  },
+  "39": {
+    "black": [{"count": 10, "mods": []}],
+    "white": [{"count": 10, "mods": []}],
+    "zebra": [{"count": 20, "mods": []}],
+    "rainbow": [
+      {"count": 18, "mods": []},
+      {"count": 2, "mods": ["REGROW"]}
+    ]
+  },
+  "40": {
+    "moab": 1
   }
 }

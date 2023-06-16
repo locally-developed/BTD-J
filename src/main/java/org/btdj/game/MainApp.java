@@ -81,14 +81,7 @@ public class MainApp extends GameApplication {
                 "ui/towerPortraits/dartMonkey/default.png",
                 0.5
         );
-
-        dartMonkeyButton.setOnMouseClicked(e -> {
-            towerPlacer = FXGL.entityBuilder()
-                    .at(0,0)
-                    .view(new Rectangle(50,50, Color.RED))
-                    .buildAndAttach();
-            towerPlacer.addComponent(new TowerPlaceComponent("dartMonkey"));
-        });
+        dartMonkeyButton.setOnMouseClicked(e -> createTowerPlacer("dartMonkey"));
         FXGL.getGameScene().addUINode(dartMonkeyButton);
 
         Group tackShooterButton = ButtonCreator.create(
@@ -96,14 +89,7 @@ public class MainApp extends GameApplication {
                 "ui/towerPortraits/tackShooter/default.png",
                 -0.25
         );
-
-        tackShooterButton.setOnMouseClicked(e -> {
-            towerPlacer = FXGL.entityBuilder()
-                    .at(0,0)
-                    .view(new Rectangle(50,50, Color.RED))
-                    .buildAndAttach();
-            towerPlacer.addComponent(new TowerPlaceComponent("tackShooter"));
-        });
+        tackShooterButton.setOnMouseClicked(e -> createTowerPlacer("tackShooter"));
         FXGL.getGameScene().addUINode(tackShooterButton);
 
         Group bombShooterButton = ButtonCreator.create(
@@ -111,15 +97,16 @@ public class MainApp extends GameApplication {
                 "ui/towerPortraits/bombShooter/default.png",
                 -0.5
         );
-
-        bombShooterButton.setOnMouseClicked(e -> {
-            towerPlacer = FXGL.entityBuilder()
-                    .at(0,0)
-                    .view(new Rectangle(50,50, Color.RED))
-                    .buildAndAttach();
-            towerPlacer.addComponent(new TowerPlaceComponent("bombShooter"));
-        });
+        bombShooterButton.setOnMouseClicked(e -> createTowerPlacer("bombShooter"));
         FXGL.getGameScene().addUINode(bombShooterButton);
+
+        Group glueGunnerButton = ButtonCreator.create(
+                new Point2D(FXGL.getSettings().getWidth()-135, 350),
+                "ui/towerPortraits/glueGunner/default.png",
+                -0.75
+        );
+        glueGunnerButton.setOnMouseClicked(e -> createTowerPlacer("glueGunner"));
+        FXGL.getGameScene().addUINode(glueGunnerButton);
 
         ImageView playButton = new ImageView(FXGL.getAssetLoader().loadImage("ui/button_play.png"));
         playButton.setX(FXGL.getSettings().getWidth()-275);
@@ -177,7 +164,13 @@ public class MainApp extends GameApplication {
             }
         });
     }
-
+    private static void createTowerPlacer(String tower) {
+        towerPlacer = FXGL.entityBuilder()
+                .at(0,0)
+                .view(new Rectangle(50,50, Color.RED))
+                .buildAndAttach();
+        towerPlacer.addComponent(new TowerPlaceComponent(tower));
+    }
     public static void removePlacer() {
         FXGL.getGameWorld().removeEntity(towerPlacer);
     }

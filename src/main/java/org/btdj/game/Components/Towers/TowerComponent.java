@@ -7,6 +7,7 @@ import com.almasb.fxgl.entity.component.Component;
 import javafx.geometry.Point2D;
 import javafx.geometry.Rectangle2D;
 import org.btdj.game.Components.BloonsComponent;
+import org.btdj.game.Components.Towers.Interfaces.TowerFilter;
 import org.btdj.game.Components.Towers.Interfaces.TrackTower;
 import org.btdj.game.EntityType;
 
@@ -28,13 +29,15 @@ public class TowerComponent extends Component {
             case FIRST:
                 bloonsInRange = bloonsInRange
                         .stream()
-                        .filter(e -> e.getType() == EntityType.BLOON)
+                        .filter(e -> e.getType() == EntityType.BLOON &&
+                                !e.getComponent(BloonsComponent.class).getModifiers().contains(BloonModifier.CAMO))
                         .toList();
                 break;
             case STRONGEST:
                 bloonsInRange = bloonsInRange
                         .stream()
-                        .filter(e -> e.getType() == EntityType.BLOON)
+                        .filter(e -> e.getType() == EntityType.BLOON &&
+                                !e.getComponent(BloonsComponent.class).getModifiers().contains(BloonModifier.CAMO))
                         .sorted(Comparator.comparingInt(bloon ->
                                 bloon.getComponent(BloonsComponent.class).getRBE())
                         )
@@ -43,19 +46,49 @@ public class TowerComponent extends Component {
         }
 
         if (!bloonsInRange.isEmpty()) {
-            Entity target = null;
-            switch (targetingPriority) {
-                case FIRST, WEAKEST -> target = bloonsInRange.get(0);
-                case LAST, STRONGEST -> target = bloonsInRange.get(bloonsInRange.size() - 1);
-            }
-
-            Point2D p1 = target.getPosition().subtract(entity.getPosition());
-            Point2D lookVector = new Point2D(1, 0);
-            double angle = lookVector.angle(p1);
-
-            entity.setRotation(angle);
-
-            trackTower.invoke(target);
+            aim(trackTower, bloonsInRange);
         }
+    }
+    public void trackTower(TrackTower trackTower, TowerFilter towerFilter) {
+        List<Entity> bloonsInRange = world.getEntitiesInRange(this.rangeCollider);
+
+        switch (targetingPriority) {
+            case FIRST:
+                bloonsInRange = bloonsInRange
+                        .stream()
+                        .filter(e -> e.getType() == EntityType.BLOON && towerFilter.test(e) &&
+                                !e.getComponent(BloonsComponent.class).getModifiers().contains(BloonModifier.CAMO))
+                        .toList();
+                break;
+            case STRONGEST:
+                bloonsInRange = bloonsInRange
+                        .stream()
+                        .filter(e -> e.getType() == EntityType.BLOON && towerFilter.test(e) &&
+                                !e.getComponent(BloonsComponent.class).getModifiers().contains(BloonModifier.CAMO))
+                        .sorted(Comparator.comparingInt(bloon ->
+                                bloon.getComponent(BloonsComponent.class).getRBE())
+                        )
+                        .toList();
+                break;
+        }
+
+        if (!bloonsInRange.isEmpty()) {
+            aim(trackTower, bloonsInRange);
+        }
+    }
+    private void aim(TrackTower trackTower, List<Entity> bloonsInRange) {
+        Entity target = null;
+        switch (targetingPriority) {
+            case FIRST, WEAKEST -> target = bloonsInRange.get(0);
+            case LAST, STRONGEST -> target = bloonsInRange.get(bloonsInRange.size() - 1);
+        }
+
+        Point2D p1 = target.getPosition().subtract(entity.getPosition());
+        Point2D lookVector = new Point2D(1, 0);
+        double angle = lookVector.angle(p1);
+
+        entity.setRotation(angle);
+
+        trackTower.invoke(target);
     }
 }

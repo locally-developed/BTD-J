@@ -44,6 +44,7 @@ public class TackShooterComponent extends Component {
             for(Point2D velocity: dartVectors) {
                 Entity dart = FXGL.getGameWorld().spawn("dart");
                 dart.setPosition(entity.getPosition().add(new Point2D(12.5,12.5)));
+                dart.setRotation(new Point2D(0,1).angle(velocity));
                 dart.getComponent(DartComponent.class).setVelocity(velocity);
             }
             coolDown = 0;
