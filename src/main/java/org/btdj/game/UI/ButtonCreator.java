@@ -7,9 +7,10 @@ import javafx.scene.Node;
 import javafx.scene.effect.ColorAdjust;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.text.Text;
 
 public class ButtonCreator {
-    public static Group create(Point2D position, String imagePath, double backgroundHue) {
+    public static Group create(Point2D position, String imagePath, double backgroundHue, int money) {
         ImageView background = new ImageView(FXGL.getAssetLoader().loadImage("ui/tower_bg.png"));
         background.setX(position.getX());
         background.setY(position.getY());
@@ -24,7 +25,11 @@ public class ButtonCreator {
         towerPortrait.setX((100-image.getWidth())/2 + position.getX());
         towerPortrait.setY((125-image.getHeight())/2 + position.getY());
 
-        Group buttonGroup = new Group(background, towerPortrait);
+        Text moneyText = TextCreator.create(String.format("$%d", money), 24);
+        moneyText.setX(position.getX()+25);
+        moneyText.setY(position.getY()+120);
+
+        Group buttonGroup = new Group(background, towerPortrait, moneyText);
         hoverEffect(buttonGroup, background, adjust);
         return buttonGroup;
     }

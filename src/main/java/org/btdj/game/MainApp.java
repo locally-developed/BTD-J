@@ -51,6 +51,8 @@ public class MainApp extends GameApplication {
 
     private RoundHandler currentRound;
     public static Entity towerPlacer;
+    public static Text towerPlaceHint;
+    private static int towerPlaceCost = 0;
     public static Text healthDisplay;
     public static Text moneyDisplay;
 
@@ -80,49 +82,55 @@ public class MainApp extends GameApplication {
         Group dartMonkeyButton = ButtonCreator.create(
                 new Point2D(FXGL.getSettings().getWidth()-265, 200),
                 "ui/towerPortraits/dartMonkey/default.png",
-                0.5
+                0.5,
+                170
         );
-        dartMonkeyButton.setOnMouseClicked(e -> createTowerPlacer("dartMonkey"));
+        dartMonkeyButton.setOnMouseClicked(e -> createTowerPlacer("dartMonkey", 170));
         FXGL.getGameScene().addUINode(dartMonkeyButton);
 
         Group tackShooterButton = ButtonCreator.create(
                 new Point2D(FXGL.getSettings().getWidth()-135, 200),
                 "ui/towerPortraits/tackShooter/default.png",
-                -0.25
+                -0.25,
+                240
         );
-        tackShooterButton.setOnMouseClicked(e -> createTowerPlacer("tackShooter"));
+        tackShooterButton.setOnMouseClicked(e -> createTowerPlacer("tackShooter", 240));
         FXGL.getGameScene().addUINode(tackShooterButton);
 
         Group bombShooterButton = ButtonCreator.create(
                 new Point2D(FXGL.getSettings().getWidth()-265, 350),
                 "ui/towerPortraits/bombShooter/default.png",
-                -0.5
+                -0.5,
+                445
         );
-        bombShooterButton.setOnMouseClicked(e -> createTowerPlacer("bombShooter"));
+        bombShooterButton.setOnMouseClicked(e -> createTowerPlacer("bombShooter", 445));
         FXGL.getGameScene().addUINode(bombShooterButton);
 
         Group glueGunnerButton = ButtonCreator.create(
                 new Point2D(FXGL.getSettings().getWidth()-135, 350),
                 "ui/towerPortraits/glueGunner/default.png",
-                -0.75
+                -0.75,
+                190
         );
-        glueGunnerButton.setOnMouseClicked(e -> createTowerPlacer("glueGunner"));
+        glueGunnerButton.setOnMouseClicked(e -> createTowerPlacer("glueGunner", 190));
         FXGL.getGameScene().addUINode(glueGunnerButton);
 
         Group dartlingGunnerButton = ButtonCreator.create(
                 new Point2D(FXGL.getSettings().getWidth()-265, 500),
                 "ui/towerPortraits/dartlingGunner/default.png",
-                0
+                0,
+                720
         );
-        dartlingGunnerButton.setOnMouseClicked(e -> createTowerPlacer("dartlingGunner"));
+        dartlingGunnerButton.setOnMouseClicked(e -> createTowerPlacer("dartlingGunner", 720));
         FXGL.getGameScene().addUINode(dartlingGunnerButton);
 
         Group iceMonkeyButton = ButtonCreator.create(
                 new Point2D(FXGL.getSettings().getWidth()-135, 500),
                 "ui/towerPortraits/iceMonkey/default.png",
-                0.15
+                0.15,
+                425
         );
-        iceMonkeyButton.setOnMouseClicked(e -> createTowerPlacer("iceMonkey"));
+        iceMonkeyButton.setOnMouseClicked(e -> createTowerPlacer("iceMonkey", 425));
         FXGL.getGameScene().addUINode(iceMonkeyButton);
 
         ImageView playButton = new ImageView(FXGL.getAssetLoader().loadImage("ui/button_play.png"));
@@ -149,11 +157,16 @@ public class MainApp extends GameApplication {
         healthDisplay.setX(50);
         healthDisplay.setY(50);
 
-        moneyDisplay = TextCreator.create(String.valueOf(gameMoney));
+        moneyDisplay = TextCreator.create(String.format("$%s", gameMoney));
         moneyDisplay.setX(200);
         moneyDisplay.setY(50);
 
-        FXGL.getGameScene().addUINodes(healthDisplay, moneyDisplay);
+        towerPlaceHint = TextCreator.create("Right click to cancel");
+        towerPlaceHint.setX(600);
+        towerPlaceHint.setY(1000);
+        towerPlaceHint.setVisible(false);
+
+        FXGL.getGameScene().addUINodes(healthDisplay, moneyDisplay, towerPlaceHint);
     }
 
     @Override
@@ -177,6 +190,7 @@ public class MainApp extends GameApplication {
                         if (towerPlacer != null) {
                             towerPlacer.removeFromWorld();
                             towerPlacer = null;
+                            towerPlaceHint.setVisible(false);
                         }
                     }
                 }
@@ -189,18 +203,30 @@ public class MainApp extends GameApplication {
             }
         });
     }
-    private static void createTowerPlacer(String tower) {
+    private static void createTowerPlacer(String tower, int cost) {
         if (towerPlacer != null) return;
+        if (gameMoney < cost) return;
+
+        towerPlaceCost = cost;
+        towerPlaceHint.setVisible(true);
+
+        Circle hitboxThing = new Circle(25, 25, 150);
+        hitboxThing.setOpacity(0.2);
+        FXGL.getGameScene().addChild(hitboxThing);
 
         towerPlacer = FXGL.entityBuilder()
                 .at(0,0)
                 .view(new Rectangle(50,50, Color.RED))
                 .buildAndAttach();
+        towerPlacer.getViewComponent().addChild(hitboxThing);
         towerPlacer.addComponent(new TowerPlaceComponent(tower));
     }
     public static void removePlacer() {
         FXGL.getGameWorld().removeEntity(towerPlacer);
         towerPlacer = null;
+        gameMoney -= towerPlaceCost;
+        towerPlaceCost = 0;
+        towerPlaceHint.setVisible(false);
     }
     public static void declareRoundComplete() {
         if (gameHealth <= 0) {
@@ -214,7 +240,7 @@ public class MainApp extends GameApplication {
 
     public static void addMoney(int money) {
         gameMoney += money;
-        moneyDisplay.setText(String.valueOf(gameMoney));
+        moneyDisplay.setText(String.valueOf(String.format("$%s", gameMoney)));
     }
     public static void removeHealth(int health) {
         gameHealth -= health;

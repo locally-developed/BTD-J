@@ -20,7 +20,11 @@ public class GlueGunnerComponent extends TowerComponent{
                 bloon.speedMultiplier *= 0.5;
                 bloon.glued = true;
 
-                Texture image = FXGL.getAssetLoader().loadTexture(String.format("bloons/%S/glue.png", bloon.bloonType));
+                Texture image = FXGL.getAssetLoader().loadTexture(String.format("bloons/%S/%s.png",
+                        bloon.bloonType,
+                        entity.getComponent(BloonsComponent.class).getModifiers().contains(BloonModifier.REGROW) ?
+                                "regrowGlue" : "glue"
+                ));
                 image.setScaleX(0.5);
                 image.setScaleY(0.5);
                 target.getViewComponent().addChild(image);

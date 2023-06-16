@@ -18,4 +18,15 @@ public class TextCreator {
         text.setStrokeLineJoin(StrokeLineJoin.ROUND);
         return text;
     }
+    public static Text create(String placeholder, int fontSize) {
+        Text text = new Text();
+        text.setText(placeholder);
+        text.setFont(FXGL.getAssetLoader().loadFont("LuckiestGuy-Regular.ttf").newFont(fontSize));
+        text.setFill(Color.WHITE);
+        text.setStroke(Color.BLACK);
+        text.setStrokeWidth(2);
+        text.setStrokeType(StrokeType.OUTSIDE);
+        text.setStrokeLineJoin(StrokeLineJoin.ROUND);
+        return text;
+    }
 }

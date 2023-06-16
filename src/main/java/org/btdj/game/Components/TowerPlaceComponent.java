@@ -53,10 +53,6 @@ public class TowerPlaceComponent extends Component {
             case "iceMonkey" -> tower.getComponent(IceMonkeyComponent.class).setRangeCollider(rangeCollider);
         }
 
-        Circle collider = new Circle(position.getX()+12.5, position.getY()+12.5, 150);
-        collider.setOpacity(0.2);
-        FXGL.getGameScene().addChild(collider);
-
         MainApp.removePlacer();
     }
 }
