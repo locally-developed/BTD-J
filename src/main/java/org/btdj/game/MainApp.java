@@ -74,7 +74,7 @@ public class MainApp extends GameApplication {
                 .buildAndAttach()
                 .addComponent(new EndComponent());
 
-        //FXGL.play("music.wav");
+        FXGL.play("music.wav");
     }
 
     @Override
@@ -158,7 +158,7 @@ public class MainApp extends GameApplication {
         healthDisplay.setY(50);
 
         moneyDisplay = TextCreator.create(String.format("$%s", gameMoney));
-        moneyDisplay.setX(200);
+        moneyDisplay.setX(250);
         moneyDisplay.setY(50);
 
         towerPlaceHint = TextCreator.create("Right click to cancel");
