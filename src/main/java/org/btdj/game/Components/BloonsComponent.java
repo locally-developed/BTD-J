@@ -4,13 +4,16 @@ import com.almasb.fxgl.dsl.FXGL;
 import com.almasb.fxgl.entity.Entity;
 import com.almasb.fxgl.entity.component.Component;
 import com.almasb.fxgl.texture.Texture;
+import com.almasb.fxgl.time.TimerAction;
 import com.fasterxml.jackson.databind.JsonNode;
 import javafx.geometry.Point2D;
+import javafx.util.Duration;
 import org.btdj.game.MainApp;
 import org.btdj.game.Util.JsonParser;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Objects;
 
 
 public class BloonsComponent extends Component {
@@ -26,6 +29,8 @@ public class BloonsComponent extends Component {
     public boolean glued = false;
     public int frozenSpeedMod = 1;
     private final ArrayList<BloonModifier> modifiers = new ArrayList<>();
+    private TimerAction regrowLoop;
+    private int processDelay = 0;
 
     @Override
     public void onUpdate(double tpf) {
@@ -43,8 +48,18 @@ public class BloonsComponent extends Component {
         modifiers.addAll(passedMods);
 
         if (passedMods.contains(BloonModifier.CAMO)) bloonVariant = "camo";
-        if (passedMods.contains(BloonModifier.REGROW)) bloonVariant = "regrow";
         if (passedMods.contains(BloonModifier.CAMO) && passedMods.contains(BloonModifier.REGROW)) bloonVariant = "camoRegrow";
+        if (passedMods.contains(BloonModifier.REGROW)) {
+            bloonVariant = "regrow";
+
+            regrowLoop = FXGL.getGameTimer().runAtInterval(() -> {
+                if (processDelay > 0 || MainApp.globalSpeedModifier > 1) {
+                    if (!Objects.equals(bloonType, initialType)) updateProperties(properties.get("parent").textValue());
+                } else {
+                    processDelay++;
+                }
+            }, Duration.seconds(1.5));
+        }
 
         updateProperties();
     }
@@ -67,7 +82,7 @@ public class BloonsComponent extends Component {
             modifiers.add(BloonModifier.valueOf(tag.asText()));
         }
 
-        Texture image = FXGL.getAssetLoader().loadTexture(String.format("bloons/%S/%S.png", bloonType, bloonVariant));
+        Texture image = FXGL.getAssetLoader().loadTexture(String.format("bloons/%s/%s.png", bloonType, bloonVariant));
         image.setScaleX(0.5);
         image.setScaleY(0.5);
         entity.getViewComponent().clearChildren();
@@ -100,6 +115,7 @@ public class BloonsComponent extends Component {
         updateProperties(properties.get("child").get(0).textValue());
     }
     public void remove() {
+        regrowLoop.expire();
         FXGL.getGameWorld().removeEntity(entity);
     }
 

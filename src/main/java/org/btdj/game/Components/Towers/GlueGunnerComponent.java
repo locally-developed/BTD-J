@@ -34,7 +34,7 @@ public class GlueGunnerComponent extends TowerComponent{
                     } else {
                         processDelay++;
                     }
-                }, Duration.seconds(1.5));
+                }, Duration.seconds(0.75));
                 coolDown = 0;
             }, e -> !e.getComponent(BloonsComponent.class).getModifiers().contains(BloonModifier.GLUE_IMMUNE) &&
                     !e.getComponent(BloonsComponent.class).glued);

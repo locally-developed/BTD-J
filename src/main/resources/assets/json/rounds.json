@@ -1,6 +1,6 @@
 {
   "1": {
-    "red": [{"count": 20, "mods": []}]
+    "yellow": [{"count": 1, "mods": ["REGROW"]}]
   },
   "2": {
     "red": [{"count": 35, "mods": []}]

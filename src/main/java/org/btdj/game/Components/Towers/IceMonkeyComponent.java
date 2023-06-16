@@ -37,7 +37,7 @@ public class IceMonkeyComponent extends TowerComponent{
                         } else {
                             processDelay++;
                         }
-                    }, Duration.seconds(1.5));
+                    }, Duration.seconds(0.75));
                 }
                 coolDown = 0;
             }, e -> !e.getComponent(BloonsComponent.class).getModifiers().contains(BloonModifier.FREEZING_IMMUNE) &&
