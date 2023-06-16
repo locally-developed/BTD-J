@@ -3,11 +3,13 @@ package org.btdj.game.Components.Towers;
 import com.almasb.fxgl.dsl.FXGL;
 import com.almasb.fxgl.texture.Texture;
 import javafx.util.Duration;
+import org.btdj.game.Components.BloonModifier;
 import org.btdj.game.Components.BloonsComponent;
 import org.btdj.game.MainApp;
 
 public class GlueGunnerComponent extends TowerComponent{
     private double coolDown = 1;
+    private int processDelay = 0;
 
     @Override
     public void onUpdate(double tpf) {
@@ -24,9 +26,14 @@ public class GlueGunnerComponent extends TowerComponent{
                 target.getViewComponent().addChild(image);
 
                 FXGL.getGameTimer().runOnceAfter(() -> {
-                    bloon.speedMultiplier *= 2;
-                    bloon.glued = false;
-                    if (target.isActive()) target.getViewComponent().removeChild(image);
+                    if (processDelay > 0 || MainApp.globalSpeedModifier > 1) {
+                        bloon.speedMultiplier *= 2;
+                        bloon.glued = false;
+                        if (target.isActive()) target.getViewComponent().removeChild(image);
+                        processDelay = 0;
+                    } else {
+                        processDelay++;
+                    }
                 }, Duration.seconds(1.5));
                 coolDown = 0;
             }, e -> !e.getComponent(BloonsComponent.class).getModifiers().contains(BloonModifier.GLUE_IMMUNE) &&

@@ -44,6 +44,7 @@ public class MainApp extends GameApplication {
     public static final ArrayList<Entity> bloonList = new ArrayList<>();
     public static int gameHealth = 200;
     public static int gameMoney = 650;
+    public static int gameXP = 0;
     private static int gameRound = 0;
     public static int globalSpeedModifier = 1;
     private static boolean isRoundActive = false;
@@ -116,6 +117,14 @@ public class MainApp extends GameApplication {
         dartlingGunnerButton.setOnMouseClicked(e -> createTowerPlacer("dartlingGunner"));
         FXGL.getGameScene().addUINode(dartlingGunnerButton);
 
+        Group iceMonkeyButton = ButtonCreator.create(
+                new Point2D(FXGL.getSettings().getWidth()-135, 500),
+                "ui/towerPortraits/iceMonkey/default.png",
+                0.15
+        );
+        iceMonkeyButton.setOnMouseClicked(e -> createTowerPlacer("iceMonkey"));
+        FXGL.getGameScene().addUINode(iceMonkeyButton);
+
         ImageView playButton = new ImageView(FXGL.getAssetLoader().loadImage("ui/button_play.png"));
         playButton.setX(FXGL.getSettings().getWidth()-275);
         playButton.setY(900);
@@ -158,9 +167,20 @@ public class MainApp extends GameApplication {
             @Override
             protected void onButtonBegin(@NotNull MouseTrigger mouseTrigger) {
                 super.onButtonBegin(mouseTrigger);
-                if (towerPlacer != null && towerPlacer.isActive()) {
-                    towerPlacer.getComponent(TowerPlaceComponent.class).place();
+                switch (mouseTrigger.getButton()) {
+                    case PRIMARY -> {
+                        if (towerPlacer != null) {
+                            towerPlacer.getComponent(TowerPlaceComponent.class).place();
+                        }
+                    }
+                    case SECONDARY -> {
+                        if (towerPlacer != null) {
+                            towerPlacer.removeFromWorld();
+                            towerPlacer = null;
+                        }
+                    }
                 }
+
             }
 
             @Override
@@ -170,6 +190,8 @@ public class MainApp extends GameApplication {
         });
     }
     private static void createTowerPlacer(String tower) {
+        if (towerPlacer != null) return;
+
         towerPlacer = FXGL.entityBuilder()
                 .at(0,0)
                 .view(new Rectangle(50,50, Color.RED))
@@ -178,6 +200,7 @@ public class MainApp extends GameApplication {
     }
     public static void removePlacer() {
         FXGL.getGameWorld().removeEntity(towerPlacer);
+        towerPlacer = null;
     }
     public static void declareRoundComplete() {
         if (gameHealth <= 0) {

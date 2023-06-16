@@ -6,7 +6,9 @@ import com.almasb.fxgl.entity.GameWorld;
 import com.almasb.fxgl.entity.component.Component;
 import javafx.geometry.Point2D;
 import javafx.geometry.Rectangle2D;
+import org.btdj.game.Components.BloonModifier;
 import org.btdj.game.Components.BloonsComponent;
+import org.btdj.game.Components.Towers.Interfaces.RadiusTower;
 import org.btdj.game.Components.Towers.Interfaces.TowerFilter;
 import org.btdj.game.Components.Towers.Interfaces.TrackTower;
 import org.btdj.game.EntityType;
@@ -75,6 +77,22 @@ public class TowerComponent extends Component {
         if (!bloonsInRange.isEmpty()) {
             aim(trackTower, bloonsInRange);
         }
+    }
+    public void radiiTower(RadiusTower radiusTower) {
+        List<Entity> entities = FXGL.getGameWorld().getEntitiesInRange(rangeCollider)
+                .stream()
+                .filter(e -> e.getType() == EntityType.BLOON)
+                .toList();
+        if (entities.isEmpty()) return;
+        radiusTower.invoke(entities);
+    }
+    public void radiiTower(RadiusTower radiusTower, TowerFilter towerFilter) {
+        List<Entity> entities = FXGL.getGameWorld().getEntitiesInRange(rangeCollider)
+                .stream()
+                .filter(e -> e.getType() == EntityType.BLOON && towerFilter.test(e))
+                .toList();
+        if (entities.isEmpty()) return;
+        radiusTower.invoke(entities);
     }
     private void aim(TrackTower trackTower, List<Entity> bloonsInRange) {
         Entity target = null;

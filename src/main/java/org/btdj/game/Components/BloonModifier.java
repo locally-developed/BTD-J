@@ -1,4 +1,4 @@
-package org.btdj.game.Components.Towers;
+package org.btdj.game.Components;
 
 public enum BloonModifier {
     EXPLOSION_IMMUNE,

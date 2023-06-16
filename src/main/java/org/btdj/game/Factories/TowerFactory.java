@@ -64,4 +64,15 @@ public class TowerFactory implements EntityFactory {
 
         return tower;
     }
+    @Spawns("iceMonkey")
+    public Entity newIceMonkey(SpawnData data) {
+        Entity tower = FXGL.entityBuilder()
+                .view(new Rectangle(25, 25, Color.YELLOW))
+                .type(EntityType.TOWER)
+                .with(new IceMonkeyComponent())
+                .build();
+        tower.setRotationOrigin(new Point2D(25.0/2,25.0/2));
+
+        return tower;
+    }
 }

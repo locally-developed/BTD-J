@@ -6,7 +6,7 @@ import com.almasb.fxgl.time.TimerAction;
 import com.fasterxml.jackson.databind.JsonNode;
 import javafx.util.Duration;
 import org.btdj.game.Components.BloonsComponent;
-import org.btdj.game.Components.Towers.BloonModifier;
+import org.btdj.game.Components.BloonModifier;
 import org.btdj.game.EntityType;
 import org.btdj.game.MainApp;
 import org.btdj.game.Util.JsonParser;

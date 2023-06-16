@@ -50,6 +50,7 @@ public class TowerPlaceComponent extends Component {
             case "bombShooter" -> tower.getComponent(BombShooterComponent.class).setRangeCollider(rangeCollider);
             case "glueGunner" -> tower.getComponent(GlueGunnerComponent.class).setRangeCollider(rangeCollider);
             case "dartlingGunner" -> tower.getComponent(DartlingGunnerComponent.class).setRangeCollider(rangeCollider);
+            case "iceMonkey" -> tower.getComponent(IceMonkeyComponent.class).setRangeCollider(rangeCollider);
         }
 
         Circle collider = new Circle(position.getX()+12.5, position.getY()+12.5, 150);

@@ -6,7 +6,6 @@ import com.almasb.fxgl.entity.component.Component;
 import com.almasb.fxgl.texture.Texture;
 import com.fasterxml.jackson.databind.JsonNode;
 import javafx.geometry.Point2D;
-import org.btdj.game.Components.Towers.BloonModifier;
 import org.btdj.game.MainApp;
 import org.btdj.game.Util.JsonParser;
 
@@ -25,11 +24,12 @@ public class BloonsComponent extends Component {
     private String initialType;
     private String bloonVariant = "default";
     public boolean glued = false;
+    public int frozenSpeedMod = 1;
     private final ArrayList<BloonModifier> modifiers = new ArrayList<>();
 
     @Override
     public void onUpdate(double tpf) {
-        entity.translate(this.velocity.multiply(2 * speed * speedMultiplier * MainApp.globalSpeedModifier));
+        entity.translate(this.velocity.multiply(2 * speed * speedMultiplier * frozenSpeedMod * MainApp.globalSpeedModifier));
     }
 
     public void updateProperties(String type, ArrayList<BloonModifier> passedMods) {
@@ -81,6 +81,8 @@ public class BloonsComponent extends Component {
             health--;
             return;
         }
+
+        MainApp.gameXP++;
 
         if (properties.get("child").size() == 0) {
             remove();
