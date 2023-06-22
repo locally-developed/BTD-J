@@ -11,7 +11,14 @@ import javafx.scene.shape.Rectangle;
 import org.btdj.game.Components.Towers.*;
 import org.btdj.game.EntityType;
 
+/**
+ * Factory responsible for spawning towers into the game
+ *
+ * @author Kasper Pajak
+ * @version 1.0
+ */
 public class TowerFactory implements EntityFactory {
+    //Literally the same code as in every other factory class
     @Spawns("dartMonkey")
     public Entity newDartMonkey(SpawnData data) {
         Entity tower = FXGL.entityBuilder()
@@ -19,7 +26,7 @@ public class TowerFactory implements EntityFactory {
                 .type(EntityType.TOWER)
                 .with(new DartMonkeyComponent())
                 .build();
-        tower.setRotationOrigin(new Point2D(25.0/2,25.0/2));
+        tower.setRotationOrigin(new Point2D(25.0/2,25.0/2));    //Allows us to rotate the tower about the centre
 
         return tower;
     }
